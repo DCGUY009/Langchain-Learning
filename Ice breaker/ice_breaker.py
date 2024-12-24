@@ -38,6 +38,7 @@ It is said that even Akbar was shocked to hear the news of Maharana Pratap's dea
 
 if __name__ == '__main__':
     print("Hello Langchain!")
+    load_dotenv()
     # print(os.getenv('OPENAI_API_KEY1'))
 
     summary_template = """
