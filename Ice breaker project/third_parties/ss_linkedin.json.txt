@@ -1,0 +1,404 @@
+{
+    "public_identifier": "samudralasanthosh",
+    "profile_pic_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/samudralasanthosh/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9ba24f78b688d806f4da8cb5d927b7a921b1052ef891a688c3ef94ec8610a150",
+    "background_cover_image_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/samudralasanthosh/cover?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=b2513ca3e41d019a1f2717446426a8a9720d2a273a04ba076b270bfa362a9cda",
+    "first_name": "Samudrala",
+    "last_name": "Santhosh",
+    "full_name": "Samudrala Santhosh",
+    "follower_count": 1576,
+    "occupation": "Cybersecurity GET @ HCL Tech | SIH'22 Winners \ud83c\udfc6",
+    "headline": "Cybersecurity GET @ HCL Tech | SIH'22 Winners \ud83c\udfc6",
+    "summary": null,
+    "country": "IN",
+    "country_full_name": "India",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "experiences": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 12,
+                "year": 2023
+            },
+            "ends_at": null,
+            "company": "HCLTech",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/hcltech",
+            "company_facebook_profile_url": null,
+            "title": "Cyber Security GET",
+            "description": null,
+            "location": "Noida, Uttar Pradesh, India",
+            "logo_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/company/hcltech/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=7e1a6f065d8d5c08c96eb116194f1e1b9139c47fe7df363ed56eaec7b8a0043e"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 5,
+                "year": 2020
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 12,
+                "year": 2022
+            },
+            "company": "BML Munjal University",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/bml-munjal-university",
+            "company_facebook_profile_url": null,
+            "title": "Student Ambassador",
+            "description": null,
+            "location": "India",
+            "logo_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/company/bml-munjal-university/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=aec0d183495cb4d9fceb6e45672be71aac3a60bc5b24176055ea4e94e4027a83"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 8,
+                "year": 2022
+            },
+            "ends_at": {
+                "day": 30,
+                "month": 11,
+                "year": 2022
+            },
+            "company": "BML Munjal University",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/bml-munjal-university",
+            "company_facebook_profile_url": null,
+            "title": "Operations Team Lead - 67th Milestone'22 ",
+            "description": "Operations team lead for the 67th Milestone and Hero's Challenge (Annual Techno, Cultural and Sports Fest of BMU - 2022 & 2023)",
+            "location": "Haryana, India",
+            "logo_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/company/bml-munjal-university/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=aec0d183495cb4d9fceb6e45672be71aac3a60bc5b24176055ea4e94e4027a83"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 7,
+                "year": 2020
+            },
+            "ends_at": {
+                "day": 30,
+                "month": 9,
+                "year": 2021
+            },
+            "company": "SATA.AI",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/75893343/",
+            "company_facebook_profile_url": null,
+            "title": "Vice President",
+            "description": null,
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4E0BAQHwVAffm9uAgQ/company-logo_400_400/0/1630635578199?e=1729728000&v=beta&t=J_-KzZ-VmsZ33OTmHews2vNYK3_zgcK6qmJ1Ucq0v8o"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 9,
+                "year": 2019
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 7,
+                "year": 2020
+            },
+            "company": "SATA.AI",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/75893343/",
+            "company_facebook_profile_url": null,
+            "title": "Deputy Secretary General",
+            "description": null,
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4E0BAQHwVAffm9uAgQ/company-logo_400_400/0/1630635578199?e=1729728000&v=beta&t=J_-KzZ-VmsZ33OTmHews2vNYK3_zgcK6qmJ1Ucq0v8o"
+        }
+    ],
+    "education": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2019
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 12,
+                "year": 2023
+            },
+            "field_of_study": "Computer Science with AI and DATA SCIENCE",
+            "degree_name": "Bachelor of Technology - BTech",
+            "school": "BML Munjal University",
+            "school_linkedin_profile_url": "https://www.linkedin.com/company/bml-munjal-university",
+            "school_facebook_profile_url": null,
+            "description": null,
+            "logo_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/company/bml-munjal-university/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20250125%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20250125T023237Z&X-Amz-Expires=1800&X-Amz-SignedHeaders=host&X-Amz-Signature=aec0d183495cb4d9fceb6e45672be71aac3a60bc5b24176055ea4e94e4027a83",
+            "grade": "8.81",
+            "activities_and_societies": null
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 7,
+                "year": 2017
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 7,
+                "year": 2019
+            },
+            "field_of_study": "MPC",
+            "degree_name": "Higher Secondary(Class XI & XII)",
+            "school": "Pinegrove Jr college",
+            "school_linkedin_profile_url": null,
+            "school_facebook_profile_url": null,
+            "description": null,
+            "logo_url": null,
+            "grade": "975",
+            "activities_and_societies": null
+        }
+    ],
+    "languages": [
+        "English",
+        "Hindi",
+        "Kannada",
+        "Telugu"
+    ],
+    "languages_and_proficiencies": [
+        {
+            "name": "English",
+            "proficiency": null
+        },
+        {
+            "name": "Hindi",
+            "proficiency": null
+        },
+        {
+            "name": "Kannada",
+            "proficiency": null
+        },
+        {
+            "name": "Telugu",
+            "proficiency": null
+        }
+    ],
+    "accomplishment_organisations": [],
+    "accomplishment_publications": [
+        {
+            "name": "Software Fault Prediction Using Particle Swarm Optimization and Random Forest",
+            "publisher": "Springer",
+            "published_on": {
+                "day": 17,
+                "month": 2,
+                "year": 2023
+            },
+            "description": null,
+            "url": "https://link.springer.com/chapter/10.1007/978-981-19-6631-6_58"
+        }
+    ],
+    "accomplishment_honors_awards": [
+        {
+            "title": "Winners - Smart India Hackathon 2022 Finals",
+            "issuer": "University Grants Commission (UGC)",
+            "issued_on": null,
+            "description": "We developed a platform which acts as a link between different stakeholders such as students, investors, mentors, entrepreneurs, organisations to foster innovation in different domains and to encourage students to document their idea and get investments, startup fellows to get inspired by success stories of different entrepreneurs, companies to host their problem statements and seek solutions, investors to look for great ideas and invest in them. It is a holistic platform which provides value to all its stakeholders by integrating them and helping them in their startup journey"
+        }
+    ],
+    "accomplishment_patents": [],
+    "accomplishment_courses": [],
+    "accomplishment_projects": [],
+    "accomplishment_test_scores": [
+        {
+            "name": "IELTS",
+            "score": "7.5",
+            "date_on": {
+                "day": 1,
+                "month": 10,
+                "year": 2022
+            },
+            "description": null
+        }
+    ],
+    "volunteer_work": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 12,
+                "year": 2019
+            },
+            "ends_at": {
+                "day": 29,
+                "month": 2,
+                "year": 2020
+            },
+            "title": "Lead Organiser",
+            "cause": "Science And Technology",
+            "company": null,
+            "company_linkedin_profile_url": null,
+            "description": "I was the lead organizer for an event named Junkyard Wars in the college fest 67th Milestone, I took on the responsibility of successfully planning, organizing, marketing, and conducting the event. This was an experience that gave me a chance to connect to a lot of people outside of college and get a chance to know their thought processes. Junkyard Wars is all about showing your innovative skills and making something better out of scrap materials.",
+            "logo_url": null
+        },
+        {
+            "starts_at": null,
+            "ends_at": null,
+            "title": "Shrama Daan Volunteer",
+            "cause": "Social Services",
+            "company": "NSS BML Munjal University",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/20438367/",
+            "description": "As part of giving back to the community, I take part in social service regularly. I've helped in building a volleyball court for the children in the nearby villages to encourage sports. I've taken part in raising awareness of Swacch Bharath Abhiyaan by sanitizing and cleaning nearby schools and public places in the villages near our college.",
+            "logo_url": "https://media.licdn.com/dms/image/C510BAQHhssegAtyNGw/company-logo_400_400/0/1630585855494?e=1729728000&v=beta&t=lhfy3UgheziXoHpPhOJbHBY7T_w0DfoGOGKhrm7-YB0"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2022
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 12,
+                "year": 2022
+            },
+            "title": "Executive Committee Member",
+            "cause": "Arts And Culture",
+            "company": null,
+            "company_linkedin_profile_url": null,
+            "description": "Covered various events in the college and helped my peers to learn photography with a professional camera setup.",
+            "logo_url": null
+        }
+    ],
+    "certifications": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2022
+            },
+            "ends_at": null,
+            "name": "Machine Learning Certification",
+            "license_number": "A I S O C M L 1 A G 2 1 1 3",
+            "display_source": "google.com",
+            "authority": "AI SOCIETY",
+            "url": "https://drive.google.com/file/d/1f-tZ6ssNs4ATGINqZ44UlFNxLTHQLfjo/view?usp=sharing"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 3,
+                "year": 2024
+            },
+            "ends_at": null,
+            "name": "SC-900 | Microsoft Certified: Security, Compliance, and Identity Fundamentals",
+            "license_number": "B3D17BF830F077BB",
+            "display_source": "microsoft.com",
+            "authority": "Microsoft",
+            "url": "https://learn.microsoft.com/api/credentials/share/en-us/SamudralaSanthosh-7355/B3D17BF830F077BB?sharingId"
+        }
+    ],
+    "connections": 1558,
+    "people_also_viewed": [
+        {
+            "link": "https://www.linkedin.com/in/chandrashekhar29",
+            "name": "Chandrashekhar M",
+            "summary": "Community Builder / Founder / Serial Entrepreneur / Building Largest Tech Community - SDC / Startup Consultant",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/maitri-sharma-92514924b",
+            "name": "Maitri Sharma",
+            "summary": "Student at BML Munjal University",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/akhand-ruchandani",
+            "name": "Akhand Ruchandani",
+            "summary": "Project Management || Transition & Transformation || HCL Tech || MBA 22' BML Munjal University",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/yash-mehta-1235a5189",
+            "name": "Yash Mehta",
+            "summary": "Associate Engineer @Hughes Systique",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/vamsi-vignesh-a46286206",
+            "name": "Vamsi Vignesh",
+            "summary": "Cloud Engineer| Cyber Security | CS Grad'24",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/vikram-sai-teja-appasani",
+            "name": "vikram sai teja  Appasani",
+            "summary": "SDET at Commvault",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/ekansh-singh-bisht-760a37201",
+            "name": "Ekansh Singh Bisht",
+            "summary": "Intern at GeeksforGeeks | Final Year student at BML Munjal University | Cybersecurity",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/shivani03mittal",
+            "name": "Shivani Mittal",
+            "summary": "SDE @BNY Mellon| CS graduate @BMU'23| Ex-Tax Technology Intern @ Deloitte USI | Student Ambassador @BMU| Java",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/karaka-shanmukhsai-538bb3190",
+            "name": "Karaka ShanmukhSai",
+            "summary": "Analyst | HCL Tech",
+            "location": null
+        },
+        {
+            "link": "https://www.linkedin.com/in/payas-gakhar-p29",
+            "name": "Payas Gakhar",
+            "summary": "SDE intern@Sutherland Global",
+            "location": null
+        }
+    ],
+    "recommendations": [],
+    "activities": [],
+    "similarly_named_profiles": [],
+    "articles": [],
+    "groups": [
+        {
+            "profile_pic_url": null,
+            "name": "Students/ Alumni of Professor Dr. A.K. Prasada Rao's group (SNIST-Hyd, UMP-Malaysia, BMU)",
+            "url": "https://www.linkedin.com/groups/9077505"
+        }
+    ],
+    "skills": [
+        "Deep Learning",
+        "Artificial Intelligence (AI)",
+        "Analytical Skills",
+        "Team Building",
+        "Cross Functional Team Building",
+        "Cross-cultural Communication Skills",
+        "Operations Management",
+        "Team Leadership",
+        "Teamwork",
+        "Figma (Software)",
+        "User Interface Design",
+        "Python (Programming Language)",
+        "C (Programming Language)",
+        "JavaScript",
+        "Machine Learning",
+        "Cascading Style Sheets (CSS)",
+        "HTML5",
+        "Leadership",
+        "Team Management",
+        "Public Speaking",
+        "Communication",
+        "Problem Solving",
+        "Presentation Skills"
+    ],
+    "inferred_salary": {
+        "min": null,
+        "max": null
+    },
+    "gender": null,
+    "birth_date": null,
+    "industry": null,
+    "extra": {
+        "github_profile_id": null,
+        "twitter_profile_id": null,
+        "facebook_profile_id": null
+    },
+    "interests": [],
+    "personal_emails": [],
+    "personal_numbers": []
+}
