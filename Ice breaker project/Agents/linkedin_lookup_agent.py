@@ -12,14 +12,17 @@ from langchain.agents import (
 # AgentExecutor is the runtime of the agent, it is going to recieve the prompts and instructions on what to do and help finish the task
 # successfully
 from langchain import hub  # To import premade prompts by the community
+from tools.tools import get_profile_url_tavily
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY1")
+print(OPENAI_API_KEY)
+LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
 
 def lookup(name: str) -> str:
     llm = ChatOpenAI(
+        api_key=OPENAI_API_KEY,
         temperature=0,
         model_name="gpt-4o-mini",
-        api_key=OPENAI_API_KEY
     )
 
     template = """
@@ -39,7 +42,7 @@ def lookup(name: str) -> str:
     tools_for_agent = [
         Tool(
             name="Crawl Google for Linkedin Profile Page",
-            func="?",
+            func=get_profile_url_tavily,
             description="Useful for when you get the Linkedin Page URL"
         )
     ]
@@ -58,6 +61,7 @@ def lookup(name: str) -> str:
     # our final agent that we are going to be runnning. These tools are the ones will be invoked. (Pretty Confusing).
 
     agent_executor = AgentExecutor(
+        api_key=LANGSMITH_API_KEY,
         llm=llm,
         tools=tools_for_agent,
         verbose=True
@@ -78,3 +82,7 @@ def lookup(name: str) -> str:
     linkedin_profile_url = result["output"]
 
     return linkedin_profile_url
+
+if __name__ == "__main__":
+    linkedin_url = lookup(name="Vaishnava Samudrala")
+    print(linkedin_url)
