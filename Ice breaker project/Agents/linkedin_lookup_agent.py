@@ -57,12 +57,22 @@ def lookup(name: str) -> str:
         prompt=react_prompt
     ) 
 
+    """
+    From the langchain documentation about Agent Exector: (https://python.langchain.com/v0.1/docs/modules/agents/concepts/)
+    The agent executor is the runtime for an agent. This is what actually calls the agent, executes the actions it chooses, passes the action outputs back to the agent, and repeats. In pseudocode, this looks roughly like:
+
+    next_action = agent.get_action(...)
+    while next_action != AgentFinish:
+    observation = run(next_action)
+    next_action = agent.get_action(..., next_action, observation)
+    return next_action
+    """
     # Now, we have to provide the runtime for the agent to make it run in loops and do stuff for us using ReAct agent. This is going to be 
     # our final agent that we are going to be runnning. These tools are the ones will be invoked. (Pretty Confusing).
 
     agent_executor = AgentExecutor(
         api_key=LANGSMITH_API_KEY,
-        llm=llm,
+        agent=agent,
         tools=tools_for_agent,
         verbose=True
     )
@@ -85,4 +95,6 @@ def lookup(name: str) -> str:
 
 if __name__ == "__main__":
     linkedin_url = lookup(name="Vaishnava Samudrala")
-    print(linkedin_url)
+    print(linkedin_url)  # If you want to run this file, run it from the Ice breaker Project Folder with 
+    # `python -m Agents.linkedin_lookup_agent` command because if you directly run it, it's not going to consider tools and the API Keys
+
