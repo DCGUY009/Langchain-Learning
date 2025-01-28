@@ -5,17 +5,12 @@ from langchain_ollama import ChatOllama
 from dotenv import load_dotenv
 from pprint import pprint
 from third_parties.linkedin import scrape_linkedin_profile, LINKEDIN_PROFILE_URL
+from Agents.linkedin_lookup_agent import lookup
 
-
-if __name__ == "__main__":
-    print("Hello Langchain!")
-
-    print(
-        "\n======================================================================================\n"
-    )
-
-    load_dotenv()
-    # print(os.getenv('OPENAI_API_KEY1'))
+def ice_break_with(name: str) -> str:
+    """Takes name as input and finds the most relevant Linkedin Link for the name and scrapes it to find the information required"""
+    linkedin_url = lookup(name=name)
+    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_url)
 
     summary_template = """
     Given the Linkedin information {information} about a person, I want you to create:
@@ -39,9 +34,6 @@ if __name__ == "__main__":
         temperature=0, model="gpt-4o-mini", api_key=os.getenv("OPENAI_API_KEY1")
     )
 
-    # llm = ChatOllama(model="llama3")
-    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=LINKEDIN_PROFILE_URL, mock=True)
-
     print(
         "\n======================================================================================\n"
     )
@@ -57,5 +49,21 @@ if __name__ == "__main__":
     pprint(
         f"Result is {res.content}"
     )  # To get only the response from the LLM without any metadat from the AI Message Object, we can use the content variable like shown here
-    
+
+
+
+if __name__ == "__main__":
+    print("Ice Breaker Enter")
+
+    print(
+        "\n======================================================================================\n"
+    )
+
+    load_dotenv()
+    # print(os.getenv('OPENAI_API_KEY1'))
+
+    # llm = ChatOllama(model="llama3")
+    # linkedin_data = scrape_linkedin_profile(linkedin_profile_url=LINKEDIN_PROFILE_URL, mock=True)    
+
+    ice_break_with(name="Vaishnava Samudrala")
      
