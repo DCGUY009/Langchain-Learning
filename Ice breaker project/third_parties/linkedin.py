@@ -13,7 +13,9 @@ Link: https://gist.githubusercontent.com/DCGUY009/16175ccc5daa5fa1a19b15ce9fba80
 """
 
 LINKEDIN_PROFILE_URL_GIST = "https://gist.githubusercontent.com/DCGUY009/16175ccc5daa5fa1a19b15ce9fba8044/raw/149bccd37bc0e359d60193ecc9074278c10d8161/gistfile1.txt"
+LINKEDIN_VAISHNAVA_PROFILE_GIST = "https://gist.githubusercontent.com/DCGUY009/500b0ed1e14bb9d61895264f1cc7a232/raw/7e3f9daf9aff437a9d8e5447cc2a0dfbb5b0d657/gistfile1.txt"
 LINKEDIN_PROFILE_URL = "https://www.linkedin.com/in/samudralasanthosh/"
+LINKEDIN_VAISHNAVA_PROFILE_URL = "https://www.linkedin.com/in/vaishnavasamudrala/"
 PROXYCURL_API_KEY = os.getenv("PROXYCURL_API_KEY")
 
 # Always define a function with type of inputs defined so that it is clear for you and for others who see it, also if you want to set default 
@@ -26,7 +28,7 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
     # If we want to use the mock file created in gist.github.com, we need to mock to true and if the mock is false, we make an API call
     # to the ProxyCurl API with the given Linkedin URL 
     if mock:
-        linkedin_profile_url = LINKEDIN_PROFILE_URL_GIST
+        linkedin_profile_url = LINKEDIN_VAISHNAVA_PROFILE_GIST
         response = requests.get(
             linkedin_profile_url,
             timeout = 10
@@ -65,8 +67,7 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
 if __name__ == "__main__":
     pprint(
         scrape_linkedin_profile(
-            linkedin_profile_url="https://www.linkedin.com/in/samudralasanthosh/",
-            mock=True
+            linkedin_profile_url="https://www.linkedin.com/in/vaishnavasamudrala/"
         )
     )
     
