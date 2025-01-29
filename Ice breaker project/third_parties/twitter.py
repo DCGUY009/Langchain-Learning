@@ -29,9 +29,11 @@ def scrape_user_tweets(username, num_tweets=5, mock: bool=False):
     if mock:
         # Temporary for now, I will create my own after getting a similar response
         # EDEN_TWITTER_GIST = "https://gist.githubusercontent.com/emarco177/9d4fdd52dc432c72937c6e383dd1c7cc/raw/1675c4b1595ec0ddd8208544a4f915769465ed6a/eden-marco-tweets.json"
-        SAMUDRALASANTHOSH_TWITTER_GIST = "https://gist.githubusercontent.com/DCGUY009/aea84135ed9d89f52683e971a2cd9c9a/raw/88bc968d6d425c3d339697520fcf116961704d6c/gistfile1.txt"
+        # SAMUDRALASANTHOSH_TWITTER_GIST = "https://gist.githubusercontent.com/DCGUY009/aea84135ed9d89f52683e971a2cd9c9a/raw/88bc968d6d425c3d339697520fcf116961704d6c/gistfile1.txt"
+        VAISHNAVASAMUDRALA_TWITTER_GIST = "https://gist.githubusercontent.com/DCGUY009/b09d1c69dc1210ea5d406785ef7742b7/raw/7740b0cd6214a82711c4cecb65b898c808fe63ff/gistfile1.txt"
 
-        tweets = requests.get(SAMUDRALASANTHOSH_TWITTER_GIST, timeout=5).json()
+        tweets = requests.get(VAISHNAVASAMUDRALA_TWITTER_GIST, timeout=5).json()
+        tweets = tweets["data"]
 
     else:
         user_id = twitter_client.get_user(username=username).data.id
@@ -39,10 +41,11 @@ def scrape_user_tweets(username, num_tweets=5, mock: bool=False):
             id=user_id, max_results=num_tweets, exclude=["retweets", "replies"]
         )
         pprint(tweets)
+        tweets = tweets[0]  # Not able to verify and debug this quickly due to twitter API being rate limited for a single request
 
 
 
-    for tweet in tweets["data"]:
+    for tweet in tweets:
         tweet_dict = {}
         tweet_dict["text"] = tweet["text"]
         tweet_dict["url"] = f"https://twitter.com/{username}/status/{tweet["id"]}"
