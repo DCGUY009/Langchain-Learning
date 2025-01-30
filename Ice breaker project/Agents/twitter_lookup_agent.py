@@ -14,12 +14,13 @@ from langchain.agents import (
 from langchain import hub  # To import premade prompts by the community
 from tools.tools import get_profile_url_tavily
 
-LANGSMITH_TRACING=True
-LANGSMITH_ENDPOINT="https://api.smith.langchain.com"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY1")
 print(OPENAI_API_KEY)
-LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2")
+LANGCHAIN_PROJECT= os.getenv("LANGCHAIN_PROJECT")
+LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
+
 
 def lookup(name: str) -> str:
     llm = ChatOpenAI(
@@ -74,7 +75,6 @@ def lookup(name: str) -> str:
     # our final agent that we are going to be runnning. These tools are the ones will be invoked. (Pretty Confusing).
 
     agent_executor = AgentExecutor(
-        api_key=LANGSMITH_API_KEY,
         agent=agent,
         tools=tools_for_agent,
         verbose=True,

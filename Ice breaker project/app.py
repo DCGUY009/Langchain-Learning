@@ -12,5 +12,18 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route("/process", methods=["POST"])
+def process():
+    name = request.form["name"]
+    summary, profile_pic_url = ice_break_with(name=name)
+    return jsonify(
+        {
+            "summary_and_facts": summary.to_dict(),
+            "picture_url": profile_pic_url,  # If you are using mock=True, it wouldn't be able to show you the profile pic because the 
+            # link will expire in 1 hour
+        }
+    )
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
