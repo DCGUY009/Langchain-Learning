@@ -1,4 +1,5 @@
 import os
+from typing import Tuple
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
@@ -8,9 +9,9 @@ from third_parties.linkedin import scrape_linkedin_profile, LINKEDIN_PROFILE_URL
 from Agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from Agents.twitter_lookup_agent import lookup as twitter_lookup_agent
 from third_parties.twitter import scrape_user_tweets
-from output_parsers import summary_parser
+from output_parsers import Summary, summary_parser
 
-def ice_break_with(name: str) -> str:
+def ice_break_with(name: str) -> Tuple[Summary, str]:
     """Takes name as input and finds the most relevant Linkedin Link for the name and scrapes it to find the information required"""
     linkedin_url = linkedin_lookup_agent(name=name)
     linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_url, mock=True)
@@ -54,15 +55,18 @@ def ice_break_with(name: str) -> str:
     chain = summary_prompt_template | llm | summary_parser  # This is LCEL, which is some syntactic sugar to wirte alngchain chains. it can be
     # built using pipe operator which can be like feeding the previous process into the nest one
 
-    res = chain.invoke(input={"information": linkedin_data, "twitter_posts": tweets})
+    res: Summary = chain.invoke(input={"information": linkedin_data, "twitter_posts": tweets})  # Here we are giving a type hint to the final 
+    # variable because we output parse the llm output
 
     print(
         "\n======================================================================================\n"
     )
 
     pprint(
-        f"Result is {res}"
+        f"Result is \n Type of final variable: {type(res)}\n Summary: {res.summary}\n Facts: {res.facts}"
     )  # To get only the response from the LLM without any metadat from the AI Message Object, we can use the content variable like shown here
+
+    return res, linkedin_data.get("profile_pic_url")
 
 
 

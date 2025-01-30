@@ -77,7 +77,8 @@ def lookup(name: str) -> str:
         api_key=LANGSMITH_API_KEY,
         agent=agent,
         tools=tools_for_agent,
-        verbose=True
+        verbose=True,
+        handle_parsing_errors=True  # Agent will retry if there is any error occurred in parsing the llm output
     )
 
     # This is pretty confusing, You can think about the create_react_agent as a recipe what we are sending to the LLm and getting back and 
