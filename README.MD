@@ -38,11 +38,13 @@ of the venv. Also check the VIRTUALENV environment variable to see if the venv i
 5. **After relaunching the terminal:**
 
     - Navigate back to the subfolder and check the virtual environment using:
+
     ```bash
     pipenv --venv
     ```
     - This command will display the absolute path of the current virtual environment.
     - You can also check the VIRTUAL_ENV environment variable to confirm the active virtual environment:
+
     ```bash
     echo $env:VIRTUAL_ENV  # For PowerShell
     ```
@@ -59,9 +61,11 @@ of the venv. Also check the VIRTUALENV environment variable to see if the venv i
 
 If you want to setup Langsmith tracing for your project, follow these steps:
 1. Setup env variables:
-    - LANGCHAIN_TRACING_V2=true  # to start tracing
-    - LANGCHAIN_API_KEY = ""  # API Key created in Langsmith
-    - LANGCHAIN_PROJECT=Ice Breaker  # Project Name where you want tracing to happen
+    ```bash
+    LANGCHAIN_TRACING_V2=true  # to start tracing
+    LANGCHAIN_API_KEY = ""  # API Key created in Langsmith
+    LANGCHAIN_PROJECT=Ice Breaker  # Project Name where you want tracing to happen
+    ```
 2. Load those environment variables in files where Agents are implemented (AgentExecutor) as vscode doesn't directly take env variables
 3. Refer this documentation of setting up langsmith for more info: (Langmsith setting up)[https://docs.smith.langchain.com/]
 4. Benefits: 
