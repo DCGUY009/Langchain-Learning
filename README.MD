@@ -2,18 +2,6 @@
 
 Course Link - [LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?couponCode=KEEPLEARNING)
 
-Instructions to follow when setting up a pipenv:
-1. If you are having multiple sub folders like me, where each folder has its own pipenv and is isolated with the root and other folders.
-Then if you have a pipfile and pipfile.lock in root folder: delete it so that when you create a pipenv in your subfolder it doesn't gets
-confused with the root folder venv. Remove the root folder pipenv using pipenv --rm
-2. Go into the sub folder where you are looking to create the pipenv using the command cd ./subfoldername/
-3. Now, enter pipenv shell command to create a pipfile and venv in that subfolder
-4. Now, when you enter activate after the venv is created, and you see that in the paranthesis before the path the venv of a different subfolder or the root folder (if you have not deleted it or you have a pipfile for your root folder) it might be the case that you have to relaunch the terminal as vscode didn't update the venv after you have created a new one.
-5. So, relaunch the terminal and go to the subfolder again and then check the venv ussing pipenv --venv where you will get the absolute path 
-of the venv. Also check the VIRTUALENV environment variable to see if the venv is updated or not by using echo $env:VIRTUAL_ENV
-6. Once you check everything and you see the virtual env before the path same as the absolute path when you execute the pipenv --venv comamnd then your venv is configured correctly
-7. Pipenv in the paranthesis before the path gives you a clean name and in the path of venv you can see that things like - are converted into _ so that there are no name errors. But essentially both are the same.
-
 
 
 ### Instructions for Setting Up a Pipenv with Multiple Subfolders:
