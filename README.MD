@@ -2,6 +2,14 @@
 
 Course Link - [LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?couponCode=KEEPLEARNING)
 
+### Folders 
+. vscode/ - Visual Studio Code configuration files 
+Ice breaker/ - Initial ice breaker implementation 
+Ice breaker project/ - Ice breaker project files 
+react-langchain/ - Our own React implementation from Langchain
+
+### Files
+README. MD - Project documentation (this file) Getting Started
 
 
 ### Instructions for Setting Up a Pipenv with Multiple Subfolders:
