@@ -29,4 +29,4 @@ if __name__ == "__main__":
     print(get_text_length.invoke(input={"text": "Samudrala Sri Vignan Santhosh"}))  # You have to invoke it this way
     # If you want to debug what is happening at a certain point in your code - You can put a breakpoint at a certain line 
     # and then right click on that particular line and click on "Evaluate in debug console". If you don't run into any error on that line
-    # then you can see things
+    # then you can see things like get_text_length.description, get_text_length.args etc
