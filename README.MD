@@ -4,10 +4,10 @@ Course Link - [LangChain- Develop LLM powered applications with LangChain](https
 
 ### Folders 
 ```bash
-- . vscode/ - Visual Studio Code configuration files 
-- Ice breaker/ - Initial ice breaker implementation 
-- Ice breaker project/ - Ice breaker project files 
-- react-langchain/ - Our own React implementation from Langchain
+. vscode/ - Visual Studio Code configuration files 
+Ice breaker/ - Initial ice breaker implementation 
+Ice breaker project/ - Ice breaker project files 
+react-langchain/ - Our own React implementation from Langchain
 ```
 ### Files
 README. MD - Project documentation (this file) Getting Started
