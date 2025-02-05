@@ -10,8 +10,9 @@ Ice breaker project/ - Ice breaker project files
 react-langchain/ - Our own React implementation from Langchain
 ```
 ### Files
-README. MD - Project documentation (this file) Getting Started
-
+```bash
+README.MD - Project documentation (this file) Getting Started
+```
 
 ### Instructions for Setting Up a Pipenv with Multiple Subfolders:
 
