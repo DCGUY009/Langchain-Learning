@@ -4,6 +4,7 @@ from langchain.agents import tool
 from langchain.prompts import PromptTemplate
 from langchain.tools.render import render_text_description
 from langchain_openai import ChatOpenAI
+from langchain.agents.output_parsers import ReActSingleInputOutputParser
 
 load_dotenv()
 
@@ -42,6 +43,8 @@ if __name__ == "__main__":
 
     tools = [get_text_length]  # List of langchain tools to supply to the ReAct Agent
 
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY1")
+
     template = """
     Answer the following questions as best you can. You have access to the following tools:
 
@@ -75,11 +78,43 @@ if __name__ == "__main__":
 
     llm = ChatOpenAI(
         temperature=0,
-        model="gpt-4o-mini", 
+        model="gpt-4o-mini",
+        api_key=OPENAI_API_KEY, 
         stop="\nObservation"  # This will tell hte llm to stop genmerating the text and to finish working once it's ouputted (\nObservation)
         # why do we need it? Because llm is not going to stop and it is going to hallucinate and guess one word after another and runs in
         # an infinite loop
     )
+
+    agent = {"input": lambda x: x["input"]} | prompt | llm  # Here, Lambda function to extract the 'input' value from a dictionary
+    # Takes a dictionary as input and returns the value associated with the 'input' key. 
+    # This is LCEL, the main reason it was created because people complained that all the chains and agents they were
+    # not able to understand what is happening under the hood. So, LCEL was created which gives more clarity. It has many options/benefits 
+    # such as parallel processing, batch, streaming etc. With the help of LCEL we can understand what is happening at each step and what is
+    # the chronological order of the executions. The pipe operator takes the output of the left side and inputs it into the right side
+
+    agent1 = prompt | llm  # It's working the same in both the cases even if I don't define a dictionary like done in "agent" variable above
+    # It is only done to show that the input is extracted first and then it is passed into the prompt (Just to demonstrate LCEL)
+
+    """
+    So, essentially 'agent' and 'agent1' what they are doing is it is going to the point till where the llm decides which tool to use 
+    and what is the tool input. Now, our job is to parse the Action and Action input to execute the tool and pass the result of the tool 
+    to the llm back. So, to extract the Action and Action input we can use regex but langchain has already implemented this and the 
+    output parser name is ReActSingleInputOutputParser 
+    """
+    agent2 = prompt | llm | ReActSingleInputOutputParser()
+
+    res = agent.invoke({"input": "What is the text length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
+    res1 = agent.invoke({"input": "What is the text length of 'Samudrala Sri Vignan Santhosh' in characters?"})
+
+    print(f"With an input dictionary with lambda function before prompt in LCEL: {res}")
+    print(f"Without an input dictionary with lambda function before prompt in LCEL: {res1}")
+
+
+
+
+
+
+
 
     
 
