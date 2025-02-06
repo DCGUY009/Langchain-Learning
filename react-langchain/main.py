@@ -1,10 +1,12 @@
 from dotenv import load_dotenv
 import os
-from langchain.agents import tool
+from langchain.agents import Tool, tool
 from langchain.prompts import PromptTemplate
 from langchain.tools.render import render_text_description
 from langchain_openai import ChatOpenAI
 from langchain.agents.output_parsers import ReActSingleInputOutputParser
+from typing import Union, List
+from langchain_core.agents import AgentAction, AgentFinish
 
 load_dotenv()
 
@@ -28,6 +30,13 @@ def get_text_length(text: str)-> int:
     )  # stripping away non alphabetic characters just in case
 
     return len(text)
+
+
+def find_tool_by_name(tools: List[Tool], tool_name: str) -> Tool:
+    for tool in tools:
+        if tool.name == tool_name:
+            return tool
+    raise ValueError(f"Tool with {tool_name} not found")
 
 
 if __name__ == "__main__":
@@ -103,12 +112,32 @@ if __name__ == "__main__":
     """
     agent2 = prompt | llm | ReActSingleInputOutputParser()
 
-    res = agent.invoke({"input": "What is the text length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
-    res1 = agent.invoke({"input": "What is the text length of 'Samudrala Sri Vignan Santhosh' in characters?"})
+    res = agent.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
+    res1 = agent1.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
+
+
+    agent_step: Union[AgentAction, AgentFinish] = agent2.invoke(
+            {
+            "input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"
+            }
+        )  # Here, ReActSingleInputOutputParser return either AgentAction or AgentFinish types, 
+           # AgentAction represents a request to execute an action by an agent. The action consists of the name of the tool to execute and 
+           # the input to pass to the tool. The log is used to pass along extra information about the action. 
+           # AgentFinish gives Final return value of an ActionAgent. Agents return an AgentFinish when they have reached a stopping condition
 
     print(f"With an input dictionary with lambda function before prompt in LCEL: {res}")
     print(f"Without an input dictionary with lambda function before prompt in LCEL: {res1}")
+    print(f"Without output parser to parse Action and Ction input: {agent_step}")
 
+    if isinstance(agent_step, AgentAction):
+        tool_name = agent_step.tool
+        tool_to_use = find_tool_by_name(tools, tool_name)
+        tool_input = agent_step.tool_input
+
+        observation = tool_to_use.func(str(tool_input))  # Here we know that the tool_input is going to be string that is why we are passing it
+        # this way, but langchain has a more robust implementation covering all types
+
+        print(f"Observation: {observation}")
 
 
 
