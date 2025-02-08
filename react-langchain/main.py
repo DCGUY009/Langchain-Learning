@@ -73,7 +73,7 @@ if __name__ == "__main__":
     Begin!
 
     Question: {input}
-    Thought:
+    Thought: {agent_scratchpad}s
     """
 
     prompt = PromptTemplate.from_template(template=template).partial(
@@ -94,6 +94,8 @@ if __name__ == "__main__":
         # an infinite loop
     )
 
+    intermediate_steps = []
+
     agent = {"input": lambda x: x["input"]} | prompt | llm  # Here, Lambda function to extract the 'input' value from a dictionary
     # Takes a dictionary as input and returns the value associated with the 'input' key. 
     # This is LCEL, the main reason it was created because people complained that all the chains and agents they were
@@ -112,32 +114,46 @@ if __name__ == "__main__":
     """
     agent2 = prompt | llm | ReActSingleInputOutputParser()
 
-    res = agent.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
-    res1 = agent1.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
+    agent3 = {"input": lambda x: x["input"], 
+              "agent_scratchpad": lambda x: x["agent_scratchpad"]
+              } | prompt | llm | ReActSingleInputOutputParser()  # Adding a new agent because we have added agent_scratcbpad later 
+            # for which we have added another lambda function. It should work even without adding thsi 
+
+    # res = agent.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
+    # res1 = agent1.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
 
 
-    agent_step: Union[AgentAction, AgentFinish] = agent2.invoke(
+    # agent_step: Union[AgentAction, AgentFinish] = agent2.invoke(
+    #         {
+    #         "input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"
+    #         }
+    #     )  # Here, ReActSingleInputOutputParser return either AgentAction or AgentFinish types, 
+    #        # AgentAction represents a request to execute an action by an agent. The action consists of the name of the tool to execute and 
+    #        # the input to pass to the tool. The log is used to pass along extra information about the action. 
+    #        # AgentFinish gives Final return value of an ActionAgent. Agents return an AgentFinish when they have reached a stopping 
+    # condition
+
+    # print(f"With an input dictionary with lambda function before prompt in LCEL: {res}")
+    # print(f"Without an input dictionary with lambda function before prompt in LCEL: {res1}")
+    # print(f"Without output parser to parse Action and Ction input: {agent_step}")
+
+    agent_step1: Union[AgentAction, AgentFinish] = agent3.invoke(
             {
-            "input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"
+            "input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?",
+            "agent_scratchpad": intermediate_steps
             }
-        )  # Here, ReActSingleInputOutputParser return either AgentAction or AgentFinish types, 
-           # AgentAction represents a request to execute an action by an agent. The action consists of the name of the tool to execute and 
-           # the input to pass to the tool. The log is used to pass along extra information about the action. 
-           # AgentFinish gives Final return value of an ActionAgent. Agents return an AgentFinish when they have reached a stopping condition
+        )
 
-    print(f"With an input dictionary with lambda function before prompt in LCEL: {res}")
-    print(f"Without an input dictionary with lambda function before prompt in LCEL: {res1}")
-    print(f"Without output parser to parse Action and Ction input: {agent_step}")
-
-    if isinstance(agent_step, AgentAction):
-        tool_name = agent_step.tool
+    if isinstance(agent_step1, AgentAction):
+        tool_name = agent_step1.tool
         tool_to_use = find_tool_by_name(tools, tool_name)
-        tool_input = agent_step.tool_input
+        tool_input = agent_step1.tool_input
 
         observation = tool_to_use.func(str(tool_input))  # Here we know that the tool_input is going to be string that is why we are passing it
         # this way, but langchain has a more robust implementation covering all types
 
         print(f"Observation: {observation}")
+        intermediate_steps.append({agent_step1, str(observation)})
 
 
 
