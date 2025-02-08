@@ -7,6 +7,7 @@ from langchain_openai import ChatOpenAI
 from langchain.agents.output_parsers import ReActSingleInputOutputParser
 from typing import Union, List
 from langchain_core.agents import AgentAction, AgentFinish
+from langchain.agents.format_scratchpad import format_log_to_str
 
 load_dotenv()
 
@@ -115,9 +116,10 @@ if __name__ == "__main__":
     agent2 = prompt | llm | ReActSingleInputOutputParser()
 
     agent3 = {"input": lambda x: x["input"], 
-              "agent_scratchpad": lambda x: x["agent_scratchpad"]
+              "agent_scratchpad": lambda x: format_log_to_str(x["agent_scratchpad"])
               } | prompt | llm | ReActSingleInputOutputParser()  # Adding a new agent because we have added agent_scratcbpad later 
-            # for which we have added another lambda function. It should work even without adding thsi 
+            # for which we have added another lambda function. It should work even without adding this. Agent scratchpad is an AgentAction
+            # object from langchain, so we need to convert it into a string
 
     # res = agent.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})  
     # res1 = agent1.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
@@ -153,7 +155,29 @@ if __name__ == "__main__":
         # this way, but langchain has a more robust implementation covering all types
 
         print(f"Observation: {observation}")
-        intermediate_steps.append({agent_step1, str(observation)})
+        intermediate_steps.append((agent_step1, str(observation)))
+    
+    agent_step1: Union[AgentAction, AgentFinish] = agent3.invoke(
+            {
+            "input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?",
+            "agent_scratchpad": intermediate_steps
+            }
+        )  # We are doing this again to simulate a for loop for an agent call and to check if it works or not. We will be implementing a
+    # for loop for this.
+    
+    print(agent_step1)  # Here as it is directly inferring from the history. The output is an AgentFinish Object.
+
+    """
+    In a ReAct agent, you have this AgentAction and AgentFinish objects which are returned based on what agent is supposed to do. 
+    For example, agentAction is returned when there is a tool call that is supposed to happen and AgentFinish when there is a final answer. 
+    When you put it in a for loop and return AgentFinish as the final answer. You have your agent which runs calling your tools, executing 
+    all the actions and completing whatever is required.
+    """
+
+    if isinstance(agent_step1, AgentFinish):
+        print(agent_step1.return_values)
+
+
 
 
 
