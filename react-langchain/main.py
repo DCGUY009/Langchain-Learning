@@ -8,6 +8,7 @@ from langchain.agents.output_parsers import ReActSingleInputOutputParser
 from typing import Union, List
 from langchain_core.agents import AgentAction, AgentFinish
 from langchain.agents.format_scratchpad import format_log_to_str
+from callbacks import AgentCallBackHandler
 
 load_dotenv()
 
@@ -90,9 +91,10 @@ if __name__ == "__main__":
         temperature=0,
         model="gpt-4o-mini",
         api_key=OPENAI_API_KEY, 
-        stop="\nObservation"  # This will tell hte llm to stop genmerating the text and to finish working once it's ouputted (\nObservation)
+        stop="\nObservation",  # This will tell hte llm to stop genmerating the text and to finish working once it's ouputted (\nObservation)
         # why do we need it? Because llm is not going to stop and it is going to hallucinate and guess one word after another and runs in
         # an infinite loop
+        callbacks=[AgentCallBackHandler()]
     )
 
     intermediate_steps = []
