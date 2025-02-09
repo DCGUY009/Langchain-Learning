@@ -11,10 +11,13 @@ from Agents.twitter_lookup_agent import lookup as twitter_lookup_agent
 from third_parties.twitter import scrape_user_tweets
 from output_parsers import Summary, summary_parser
 
+
 def ice_break_with(name: str) -> Tuple[Summary, str]:
     """Takes name as input and finds the most relevant Linkedin Link for the name and scrapes it to find the information required"""
     linkedin_url = linkedin_lookup_agent(name=name)
-    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_url, mock=True)
+    linkedin_data = scrape_linkedin_profile(
+        linkedin_profile_url=linkedin_url, mock=True
+    )
 
     twitter_username = twitter_lookup_agent(name=name)
     tweets = scrape_user_tweets(username=twitter_username, mock=True)
@@ -31,14 +34,14 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
     """
 
     summary_prompt_template = PromptTemplate(
-        input_variables=["information", "twitter_posts"], 
-        template=summary_template, 
-        partial_variables={"format_instructions": summary_parser.get_format_instructions}
+        input_variables=["information", "twitter_posts"],
+        template=summary_template,
+        partial_variables={
+            "format_instructions": summary_parser.get_format_instructions
+        },
     )
 
-    print(
-        f"The Summary Prompt Template variable: {summary_prompt_template}"
-    ) 
+    print(f"The Summary Prompt Template variable: {summary_prompt_template}")
 
     print(
         "\n======================================================================================\n"
@@ -52,10 +55,14 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
         "\n======================================================================================\n"
     )
 
-    chain = summary_prompt_template | llm | summary_parser  # This is LCEL, which is some syntactic sugar to wirte alngchain chains. it can be
+    chain = (
+        summary_prompt_template | llm | summary_parser
+    )  # This is LCEL, which is some syntactic sugar to wirte alngchain chains. it can be
     # built using pipe operator which can be like feeding the previous process into the nest one
 
-    res: Summary = chain.invoke(input={"information": linkedin_data, "twitter_posts": tweets})  # Here we are giving a type hint to the final 
+    res: Summary = chain.invoke(
+        input={"information": linkedin_data, "twitter_posts": tweets}
+    )  # Here we are giving a type hint to the final
     # variable because we output parse the llm output
 
     print(
@@ -69,7 +76,6 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
     return res, linkedin_data.get("profile_pic_url")
 
 
-
 if __name__ == "__main__":
     print("Ice Breaker Enter")
 
@@ -81,7 +87,6 @@ if __name__ == "__main__":
     # print(os.getenv('OPENAI_API_KEY1'))
 
     # llm = ChatOllama(model="llama3")
-    # linkedin_data = scrape_linkedin_profile(linkedin_profile_url=LINKEDIN_PROFILE_URL, mock=True)    
+    # linkedin_data = scrape_linkedin_profile(linkedin_profile_url=LINKEDIN_PROFILE_URL, mock=True)
 
     ice_break_with(name="Vaishnava Samudrala")
-     

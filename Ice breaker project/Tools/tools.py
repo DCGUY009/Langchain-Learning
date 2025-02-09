@@ -8,10 +8,8 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 def get_profile_url_tavily(search: str):
     """Searches for Linkedin or Twitter Profile Page"""
     search_web = TavilySearchResults()
-    res = search_web.run(f"{search}")  # When we invoke it with the query, it is going to implement the tavily logic in the backend 
+    res = search_web.run(
+        f"{search}"
+    )  # When we invoke it with the query, it is going to implement the tavily logic in the backend
     # and give us the result
     return res
-
-
-
-

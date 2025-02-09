@@ -1,4 +1,4 @@
-import os 
+import os
 import requests
 from dotenv import load_dotenv
 from pprint import pprint
@@ -18,39 +18,38 @@ LINKEDIN_PROFILE_URL = "https://www.linkedin.com/in/samudralasanthosh/"
 LINKEDIN_VAISHNAVA_PROFILE_URL = "https://www.linkedin.com/in/vaishnavasamudrala/"
 PROXYCURL_API_KEY = os.getenv("PROXYCURL_API_KEY")
 
-# Always define a function with type of inputs defined so that it is clear for you and for others who see it, also if you want to set default 
+
+# Always define a function with type of inputs defined so that it is clear for you and for others who see it, also if you want to set default
 # values like `mock`` in this function
-def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):  
-    """ Scrape information from linkedin profiles,
+def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
+    """Scrape information from linkedin profiles,
     Manually scrape the information from the Linkedin profile.
     """
 
     # If we want to use the mock file created in gist.github.com, we need to mock to true and if the mock is false, we make an API call
-    # to the ProxyCurl API with the given Linkedin URL 
+    # to the ProxyCurl API with the given Linkedin URL
     if mock:
         linkedin_profile_url = LINKEDIN_VAISHNAVA_PROFILE_GIST
-        response = requests.get(
-            linkedin_profile_url,
-            timeout = 10
-        )
+        response = requests.get(linkedin_profile_url, timeout=10)
     else:
         api_endpoint = "https://nubela.co/proxycurl/api/v2/linkedin"
-        headers = {'Authorization': 'Bearer ' + PROXYCURL_API_KEY}
+        headers = {"Authorization": "Bearer " + PROXYCURL_API_KEY}
         response = requests.get(
             api_endpoint,
             params={"url": linkedin_profile_url},
             headers=headers,
-            timeout=10
+            timeout=10,
         )
-    
-    data = response.json()  # If the user data contains a profile picture URL, it has a TTl (Tiem to Load) of 1 hour. After 1 hour, 
+
+    data = (
+        response.json()
+    )  # If the user data contains a profile picture URL, it has a TTl (Tiem to Load) of 1 hour. After 1 hour,
     # we cannot access the profile picture through the link. So, it is best if you save it somewhere in a storage
 
-
-    # There are lot of emppty fields in the response and we want to remove them. 
+    # There are lot of emppty fields in the response and we want to remove them.
     data = {
-        k:v
-        for k,v in data.items()
+        k: v
+        for k, v in data.items()
         if v not in ([], "", "", None)
         and k not in ["people_also_viewed", "certifications"]
     }
@@ -58,10 +57,8 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
     if data.get("groups"):
         for group_dict in data.get("groups"):
             group_dict.pop("profile_pic_url")
-    
 
     return data
-        
 
 
 if __name__ == "__main__":
@@ -70,4 +67,3 @@ if __name__ == "__main__":
             linkedin_profile_url="https://www.linkedin.com/in/vaishnavasamudrala/"
         )
     )
-    

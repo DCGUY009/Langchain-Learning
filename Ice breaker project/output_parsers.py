@@ -5,10 +5,12 @@ from pydantic import BaseModel, Field
 
 class Summary(BaseModel):
     summary: str = Field(description="summary")
-    facts: List[str] = Field(description="Interesting facts about them")  # Description is used by langchain later to parse the output from the LLM.
+    facts: List[str] = Field(
+        description="Interesting facts about them"
+    )  # Description is used by langchain later to parse the output from the LLM.
 
     def to_dict(self) -> Dict[str, Any]:
         return {"summary": self.summary, "facts": self.facts}
-    
+
 
 summary_parser = PydanticOutputParser(pydantic_object=Summary)
