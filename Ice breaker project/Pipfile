@@ -11,6 +11,7 @@ black = "*"
 langchain-ollama = "*"
 tweepy = "*"
 flask = "*"
+langchain-community = "*"
 
 [dev-packages]
 
