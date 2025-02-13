@@ -37,6 +37,7 @@ cd ./subfoldername/
 pipenv shell
 ```
 This will:
+
 ✅ Create a **Pipfile** in that subfolder.  
 ✅ Create a `.venv` **inside** the subfolder to store dependencies.  
 ✅ Activate the virtual environment, displaying **(subfoldername)** before the path in the terminal.
