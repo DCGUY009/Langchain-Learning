@@ -2,7 +2,7 @@
 
 Course Link - [LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?couponCode=KEEPLEARNING)
 
-### Folders 
+### Folder Structure
 ```bash
 📦 ROOT Folder
 ├── 📂 .vscode
