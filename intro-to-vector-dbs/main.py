@@ -22,6 +22,8 @@ vector db but retrieving the relevant ones to the query from vectordb and conver
 
 load_dotenv()
 
+os.environ["LANGSMITH_PROJECT"] = "Medium Analyzer"
+
 openai_api_key = os.getenv("OPENAI_API_KEY1")
 
 if __name__ == "__main__":
@@ -42,14 +44,40 @@ if __name__ == "__main__":
 
     query = "What is Pinecone in Machine Learning"
     chain = PromptTemplate.from_template(template=query) | llm
-    result = chain.invoke(input={})
-    print(result.content)
+    # result = chain.invoke(input={})
+    # print(result.content)
 
     vectorstore = PineconeVectorStore(
         index_name=PINECONE_VECTOR_INDEX, embedding=embeddings
     )
 
-    retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")
+    retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")  # This is going to be the prompt that 
+    # is sent to the llm after we retrive the relevant information
+     
+
+    combine_docs_chain = create_stuff_documents_chain(llm, retrieval_qa_chat_prompt)  # This function output us a 
+    # langchain chain, we plug it in the llm and we give it a retrieval qa prompt and this chain takes a list of documents
+    #  and formats them all into a prompt, then passes that prompt to an LLM. It passes ALL documents, so you should make 
+    # sure it fits within the context window of the LLM you are using. 
+
+    retrieval_chain = create_retrieval_chain(
+        retriever=vectorstore.as_retriever(), combine_docs_chain=combine_docs_chain
+    )  # So, before we stuff the documents into the prompt we send into the LLM, we need to get those documents 
+    # from somewhere, right? For that this chain is used. So, the retriver argument here is to get the documents 
+    # and then run the combine_doc_chain to stuff all those documents into the prompt
+
+    # If we don't want to simply stuff all the documents and put it in the prompt but summarize each document first
+    # and then send it to the LLM. We can also do that.
+
+    result = retrieval_chain.invoke(input={"input": query})
+
+    print(result)
+
+
+
+
+
+
 
 
 
