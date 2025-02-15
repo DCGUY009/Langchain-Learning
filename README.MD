@@ -4,14 +4,51 @@ Course Link - [LangChain- Develop LLM powered applications with LangChain](https
 
 ### Folders 
 ```bash
-. vscode/ - Visual Studio Code configuration files 
-Ice breaker/ - Initial ice breaker implementation 
-Ice breaker project/ - Ice breaker project files 
-react-langchain/ - Our own React implementation from Langchain
-```
-### Files
-```bash
-README.MD - Project documentation (this file) Getting Started
+📦 ROOT Folder
+├── 📂 .vscode
+│   └── launch.json
+├── 📂 Ice breaker
+│   ├── 📂 .venv
+│   ├── .env
+│   ├── .gitignore
+│   ├── ice_breaker.py
+│   ├── LICENSE
+│   ├── Pipfile
+│   ├── Pipfile.lock
+│   └── README.md
+├── 📂 Ice breaker project
+│   ├── 📂 __pycache__
+│   ├── 📂 .venv
+│   ├── 📂 Agents
+│   ├── 📂 static
+│   ├── 📂 templates
+│   ├── 📂 third_parties
+│   ├── 📂 tools
+│   ├── .env
+│   ├── .gitignore
+│   ├── app.py
+│   ├── ice_breaker.py
+│   ├── LICENSE
+│   ├── output_parsers.py
+│   ├── Pipfile
+│   ├── Pipfile.lock
+│   └── README.md
+├── 📂 intro-to-vector-dbs
+│   ├── 📂 .venv
+│   ├── ingestion.py
+│   ├── mediumblog1.txt
+│   ├── Pipfile
+│   ├── Pipfile.lock
+├── 📂 react-langchain
+│   ├── 📂 __pycache__
+│   ├── 📂 .venv
+│   ├── callbacks.py
+│   ├── main.py
+│   ├── Pipfile
+│   ├── Pipfile.lock
+│── .env
+│── .gitignore
+│── README.md
 ```
 
 ### **Setting Up Pipenv for Multiple Subfolders with Isolated `.venv` Environments**
