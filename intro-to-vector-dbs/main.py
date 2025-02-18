@@ -74,6 +74,28 @@ if __name__ == "__main__":
     print(result)
 
 
+    # Let's take a custom Prompt that we create and then do RAG on it
+    template = """Use the following pieces of context to answer the question at the end. If you don't 
+    know the answer, just say that you don't know, don't try to make up an answer. Use three sentences maximum
+    and keep the answer as concise as possible. Always say 'thanks for asking!' at the end of the answer.
+
+    {context}
+
+    Question: {question}
+
+    Helpful Answer:"""  # Pretty similar to the retrieval-qa-chat prompt we pulled from the hub earlier. Just the 
+    # instruction is different a little bit
+
+    custom_rag_prompt = PromptTemplate.from_template(template)
+
+    rag_chain = (
+        {"context": vectorstore.as_retriever() | format_docs, "question": RunnablePassThrough()},
+        custom_rag_prompt |
+        llm
+    )  # Using LCEL
+
+
+
 
 
 
