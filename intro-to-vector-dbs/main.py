@@ -8,6 +8,7 @@ from langchain import hub
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains.retrieval import create_retrieval_chain
 from ingeston import PINECONE_VECTOR_INDEX
+from langchain_core.runnables import RunnablePassthrough
 
 """
 When we do RAG, what happens in the backend is that first we store our documents in a vector database.
@@ -25,6 +26,9 @@ load_dotenv()
 os.environ["LANGSMITH_PROJECT"] = "Medium Analyzer"
 
 openai_api_key = os.getenv("OPENAI_API_KEY1")
+
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
 
 if __name__ == "__main__":
     print("Retrieving")
@@ -89,10 +93,18 @@ if __name__ == "__main__":
     custom_rag_prompt = PromptTemplate.from_template(template)
 
     rag_chain = (
-        {"context": vectorstore.as_retriever() | format_docs, "question": RunnablePassThrough()},
-        custom_rag_prompt |
-        llm
-    )  # Using LCEL
+        {"context": vectorstore.as_retriever() | format_docs, "question": RunnablePassthrough()}
+        | custom_rag_prompt
+        | llm
+    )  # Using LCEL, here format_docs is a function which takes docs outputted from vector store and formats it accordingly
+    # we use RunnablePassThrough() when mixing direct values and runnables in LCEL to ensure uniform 
+    # processing. If all inputs are direct values, it's not needed. When one input is a runnable and another is a static
+    # value, RunnablePassThrough() keeps execution consistent. This ensures smooth chaining and allows easy future 
+    # modifications. 
+
+    res = rag_chain.invoke(query)
+
+    print(res)
 
 
 
