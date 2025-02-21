@@ -86,7 +86,7 @@ $env:PIPENV_VENV_IN_PROJECT = "1"
 and then activate the pipenv shell:
 ```powershell
 pipenv shell
----
+```
 
 #### **3. Activating the Virtual Environment in Any Subfolder**  
 Once inside the subfolder, activate its virtual environment with:
