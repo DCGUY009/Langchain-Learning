@@ -53,7 +53,7 @@ Course Link - [LangChain- Develop LLM powered applications with LangChain](https
 
 ### **Setting Up Pipenv for Multiple Subfolders with Isolated `.venv` Environments**
 
-This guide ensures that each subfolder has its own **Pipenv virtual environment** stored inside the subfolder (`.venv`), making it easy to distinguish environments. When activated, the environment name (same as the subfolder) will appear in parentheses before the terminal path.
+This is how to ensure that each subfolder has its own **Pipenv virtual environment** stored inside the subfolder (`.venv`), making it easy to distinguish environments. When activated, the environment name (same as the subfolder) will appear in parentheses before the terminal path.
 
 ---
 
@@ -82,9 +82,10 @@ This will:
 If you want to **ensure the `.venv` is created inside the subfolder**, set:
 ```powershell
 $env:PIPENV_VENV_IN_PROJECT = "1"
-pipenv shell
 ```
-
+and then activate the pipenv shell:
+```powershell
+pipenv shell
 ---
 
 #### **3. Activating the Virtual Environment in Any Subfolder**  
@@ -116,7 +117,7 @@ pipenv --venv
 ```
 This should return the path inside the current subfolder:
 ```
-D:\Genai_projects\Langchain - Develop LLM powered applications - Udemy Course\subfoldername\.venv
+Folder Path\subfoldername\.venv
 ```
 
 To further verify:
