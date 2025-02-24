@@ -5,10 +5,10 @@ from langchain_openai import ChatOpenAI
 from langchain_ollama import ChatOllama
 from dotenv import load_dotenv
 from pprint import pprint
-from third_parties.linkedin import scrape_linkedin_profile, LINKEDIN_PROFILE_URL
+from third_parties.linkedin import scrape_linkedin_profile, LINKEDIN_PROFILE_URL  # API Call to third parties
 from Agents.linkedin_lookup_agent import lookup as linkedin_lookup_agent
 from Agents.twitter_lookup_agent import lookup as twitter_lookup_agent
-from third_parties.twitter import scrape_user_tweets
+from third_parties.twitter import scrape_user_tweets  # API Call to third parties
 from output_parsers import Summary, summary_parser
 
 
