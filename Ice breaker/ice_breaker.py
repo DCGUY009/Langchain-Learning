@@ -84,7 +84,7 @@ if __name__ == "__main__":
     load_dotenv()
     # print(os.getenv('OPENAI_API_KEY1'))
 
-    summary_template = """
+    summary_template = """ 
     Given the information {information} about a person, I want you to create:
     1. a short summary
     2. two interesting facts about them
@@ -92,7 +92,16 @@ if __name__ == "__main__":
 
     summary_prompt_template = PromptTemplate(
         input_variables=["information"], template=summary_template
-    )
+    )  # Here PromptTemplate and PromptTemplate.from_template they are both the same, the main difference is 
+    # you use PromptTemplate directly and mention input_variables and the template it has to take. But in the 
+    # PromptTemplate.from_template function the input variables are automatically inferred from {} in the template
+    # provided. You use PromptTemplate directly when you are making complex prompts and You use 
+    # PrompTemplate.from_template() function when you are using straightforward prompts. Also, partial_variables can 
+    # be used in the PromptTemplate and the PromptTemplate.from_template method as well to fill in some of the 
+    # variables and leave some of the variables as it is. So, if we have two variables {variable1} and {variable2}
+    # we can use partial_variables = {"variable1": "something"} to set a constant value for a variable in the template
+    # so that we don't have to pass in the value everytime we invoke it (if it's the same). So, we use partial_variables
+    # to set a constant to a variable.
 
     print(
         f"The type of summary_prompt_template {type(summary_prompt_template)} \nThe Summary Prompt Template variable: {summary_prompt_template}"
