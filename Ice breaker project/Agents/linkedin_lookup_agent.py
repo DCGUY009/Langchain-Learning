@@ -14,8 +14,9 @@ from langchain.agents import (
 from langchain import hub  # To import premade prompts by the community
 from tools.tools import get_profile_url_tavily
 
-LANGSMITH_TRACING = True
-LANGSMITH_ENDPOINT = "https://api.smith.langchain.com"
+# LANGSMITH_TRACING = True
+# LANGSMITH_ENDPOINT = "https://api.smith.langchain.com"  # These 2 lines are not needed for tracking the traces in 
+# langsmith 
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY1")
 print(OPENAI_API_KEY)
