@@ -81,10 +81,10 @@ def lookup(name: str) -> str:
 
     agent_executor = AgentExecutor(agent=agent, tools=tools_for_agent, verbose=True)
 
-    # This is pretty confusing, You can think about the create_react_agent as a recipe what we are sending to the LLm and getting back and
-    # parsing it and but the agentexecutor is going to be respomsible for orchestrating all these and calling those functions.
-    # Clarification: It is pretty confusing, we are using tools in create_react_agent and also AgentExecutor.
-    # I get that in create_react_agent we are defining the tools to pass it into the react prompt template. And in the agent executor
+    # You can think about the create_react_agent as a recipe what we are sending to the LLm and getting back and
+    # parsing it, but the agentexecutor is going to be responsible for orchestrating all these and calling those functions.
+    # Clarification: It is pretty confusing as we are using tools in create_react_agent and also AgentExecutor.
+    # In create_react_agent we are defining the tools to pass it into the react prompt template. And in the agent executor
     # we are passing it so that it can use those tools and execute them if required.
 
     result = agent_executor.invoke(
