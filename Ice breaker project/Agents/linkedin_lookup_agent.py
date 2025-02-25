@@ -59,13 +59,16 @@ def lookup(name: str) -> str:
         "hwchase17/react"
     )  # react prompt from the Langchain cofounder Harrison chase
 
-    # Here, we are defining what agent we want to use, what is the LLM that the agent has to use and which tools it has to use, also how to
-    # parse the output we get, it is going to accept our ReAct Prompt (react_prompt or the custom one we can define)
+    # Here, we are defining what agent we want to use, what is the LLM that the agent has to use and which tools it has to 
+    # use, along with that we can also define how to parse the output we get, it is going to accept our ReAct Prompt 
+    # (react_prompt or the custom one we can define)
     agent = create_react_agent(llm=llm, tools=tools_for_agent, prompt=react_prompt)
 
     """
-    From the langchain documentation about Agent Exector: (https://python.langchain.com/v0.1/docs/modules/agents/concepts/)
-    The agent executor is the runtime for an agent. This is what actually calls the agent, executes the actions it chooses, passes the action outputs back to the agent, and repeats. In pseudocode, this looks roughly like:
+    From the langchain documentation about Agent Executor: 
+    (https://python.langchain.com/v0.1/docs/modules/agents/concepts/)
+    The agent executor is the runtime for an agent. This is what actually calls the agent, executes the actions it 
+    chooses, passes the action outputs back to the agent, and repeats. In pseudocode, this looks roughly like:
 
     next_action = agent.get_action(...)
     while next_action != AgentFinish:
