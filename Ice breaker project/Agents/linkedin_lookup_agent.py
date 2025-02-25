@@ -43,8 +43,9 @@ def lookup(name: str) -> str:
 
     """
     In langchain this is how you create a tool, If the agents decide to use the tool for any of its processing then it's 
-    going to refer to the name as the name parameter given here and based on the description given it's going to decide whether to 
-    use a certain tool or not. And after deciding it is going to execute the function provided in the tool for achieving the result required.
+    going to refer to the name as the name parameter given here and based on the description given it's going to decide
+    whether to use a certain tool or not. And after deciding it is going to execute the function provided in the tool 
+    for achieving the result required.
     """
     tools_for_agent = [
         Tool(
