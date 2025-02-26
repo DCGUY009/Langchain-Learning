@@ -6,7 +6,7 @@ from langchain.schema import (
 
 
 class AgentCallBackHandler(BaseCallbackHandler):
-    # We are overriding the custom on_llm_start and on_llm_end methods onand implementing our custom logic here
+    # We are overriding the custom on_llm_start and on_llm_end methods and implementing our custom logic here
     def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
     ) -> Any:
