@@ -26,8 +26,8 @@ os.environ["LANGSMITH_PROJECT"] = "ReAct"  # Using this to create a new langsmit
 
 @tool
 def get_text_length(text: str) -> int:
-    """Returns the length of a text by characters"""  # Description is vv important as this is used by the LLM to decide whether it has to
-    # use this tool or not
+    """Returns the length of a text by characters"""  # Description is vv important as this is used by the LLM to decide whether it has 
+    # to use this tool or not
     print(f"get_text_length enter with {text=}")
     text = text.strip("'\n").strip(
         '"'
