@@ -14,17 +14,18 @@ from output_parsers import Summary, summary_parser
 
 def ice_break_with(name: str) -> Tuple[Summary, str]:
     """Takes name as input and finds the most relevant Linkedin Link for the name and scrapes it to find the information required"""
-    linkedin_url = linkedin_lookup_agent(name=name)
+    linkedin_url = linkedin_lookup_agent(name=name)  # Tavily search for Linkedin Profile of the given name (Link)
     linkedin_data = scrape_linkedin_profile(
         linkedin_profile_url=linkedin_url, mock=True
-    )
+    )  # Making an API Call using ProxyCurl to get Linkedin Details of the link found in the previous step
 
-    twitter_username = twitter_lookup_agent(name=name)
-    tweets = scrape_user_tweets(username=twitter_username, mock=True)
+    twitter_username = twitter_lookup_agent(name=name)  # Tavily search for Twitter Profile of the given name (Link)
+    tweets = scrape_user_tweets(username=twitter_username, mock=True)  # To get twitter profile of the user from the link found in the
+    # previous step with the use of Twitter API (which is very very very limited for free users, so using mock=True always)
 
     summary_template = """
-    Given the Linkedin information about a person from linkedin  {information},
-    and twitter posts {twitter_posts}.
+    Given the Linkedin information about a person from linkedin:\n {information},\n\n
+    and twitter posts:\n {twitter_posts}\n\n
     I want you to create:
     1. a short summary
     2. two interesting facts about them
