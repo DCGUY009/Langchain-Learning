@@ -5,8 +5,7 @@ from flask import (
     render_template,
     request,
     jsonify,
-)  # Flask is to create the flask application isrender_Templates to render HTML,
-
+)  # Flask is to create the flask application, render_Templates is to render HTML,
 # jsonify is going to take the dictionary and conmvert it into json so that we can easily return it to the frontend
 from ice_breaker import ice_break_with
 

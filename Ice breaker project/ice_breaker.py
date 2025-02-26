@@ -31,7 +31,7 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
     2. two interesting facts about them
 
     Use both information from Linkedin and Twitter
-    \n {format_instructions}
+    \n{format_instructions}
     """
 
     summary_prompt_template = PromptTemplate(
@@ -39,7 +39,8 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
         template=summary_template,
         partial_variables={
             "format_instructions": summary_parser.get_format_instructions
-        },
+        },  # We use partial variables to assign a default value to a variable without assigning the value everytime we invoke the agent 
+        # or llm
     )
 
     print(f"The Summary Prompt Template variable: {summary_prompt_template}")
@@ -58,8 +59,8 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
 
     chain = (
         summary_prompt_template | llm | summary_parser
-    )  # This is LCEL, which is some syntactic sugar to wirte alngchain chains. it can be
-    # built using pipe operator which can be like feeding the previous process into the nest one
+    )  # This is LCEL, which is a way to write langchain chains. it can be
+    # built using pipe operator which will be feeding the previous process output as the input to the next one 
 
     res: Summary = chain.invoke(
         input={"information": linkedin_data, "twitter_posts": tweets}
@@ -72,7 +73,8 @@ def ice_break_with(name: str) -> Tuple[Summary, str]:
 
     pprint(
         f"Result is \n Type of final variable: {type(res)}\n Summary: {res.summary}\n Facts: {res.facts}"
-    )  # To get only the response from the LLM without any metadat from the AI Message Object, we can use the content variable like shown here
+    )  # To get only the response from the LLM without any metadat from the AI Message Object, we can use the content variable like shown 
+    # here
 
     return res, linkedin_data.get("profile_pic_url")
 
