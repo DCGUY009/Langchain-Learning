@@ -134,6 +134,14 @@ This should match the `.venv` inside the current subfolder.
 
 ---
 
+#### **7. Sometimes venv is not detected right**
+- Sometimes some libraries even when venv is activated and the library is present in the `venv/lib` folder, it shows it can't find 
+because the vscode ide is taking a different interpreter for the file.
+- So, in that cases you have to enter: `ctrl + shift + p` and enter `Python: Select Interpreter` and then if you can't find the venv 
+you are looking for: click on  `Enter Interpreter Path` and go to `.venv/Scripts/python.exe` in your folder where `.venv` is residing and  and choose `Select Interpreter` to resolve the issue
+
+---
+
 #### **Final Checklist**
 ✔ Each subfolder has its **own** `.venv` (not shared).  
 ✔ Activating the environment shows **(subfoldername)** before the terminal path.  
