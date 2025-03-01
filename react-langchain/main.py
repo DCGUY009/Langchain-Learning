@@ -37,6 +37,10 @@ def get_text_length(text: str) -> int:
 
 
 def find_tool_by_name(tools: List[Tool], tool_name: str) -> Tool:
+    """
+    Used when LLM returns an AgentAction Object and that object contains tools to be caled. It finds all the tools available with the 
+    LLM Returned list to return the tool to be used.
+    """
     for tool in tools:
         if tool.name == tool_name:
             return tool
@@ -50,9 +54,9 @@ if __name__ == "__main__":
     # # it like this
     # print(get_text_length.invoke(input={"text": "Samudrala Sri Vignan Santhosh"}))  # You have to invoke it this way
     # # If you want to debug what is happening at a certain point in your code - You can put a breakpoint at a certain line
-    # # and then right click on that particular line and click on "Evaluate in debug console". If you don't run into any error on that line
-    # # then you can see things like get_text_length.description, get_text_length.args etc
-    # # Here, we are passing in as input dictionary which is cumbersome because langchain wants to keep everything structured for LCEL
+    # # and then right click on that particular line and click on "Evaluate in debug console". If you don't run into any error on that 
+    # # line then you can see things like get_text_length.description, get_text_length.args etc
+    # # Here, we are passing in as input dictionary which is cumbersome but because langchain wants to keep everything structured for LCEL
 
     tools = [get_text_length]  # List of langchain tools to supply to the ReAct Agent
 
@@ -85,7 +89,7 @@ if __name__ == "__main__":
         tool_names=", ".join([t.name for t in tools]),
     )  # Here we can't directly pass tools=tools as it is a Tool object from langchain and we need strings of the tools
     # along with their arguments and descriptions because llm only accepts string. So, we use an inbuilt function from langchain
-    # which converts this objects into string so that it is easier to procesws. The render_text_Description jsut formats it nicely
+    # which converts this objects into string so that it is easier to process. The render_text_Description jsut formats it nicely
     # into a string and gives us with tool names and descriptions for all the tools present
 
     print(prompt)
@@ -94,13 +98,13 @@ if __name__ == "__main__":
         temperature=0,
         model="gpt-4o-mini",
         api_key=OPENAI_API_KEY,
-        stop="\nObservation",  # This will tell hte llm to stop genmerating the text and to finish working once it's ouputted (\nObservation)
-        # why do we need it? Because llm is not going to stop and it is going to hallucinate and guess one word after another and runs in
-        # an infinite loop
+        stop="\nObservation",  # This will tell the llm to stop genmerating the text and to finish working once it's ouputted 
+        # (\nObservation) why do we need it? Because llm is not going to stop and it is going to hallucinate and guess one word after 
+        # another and runs in an infinite loop
         callbacks=[AgentCallBackHandler()],
     )
 
-    intermediate_steps = []
+    intermediate_steps = []  # For Trakcing history
 
     agent = (
         {"input": lambda x: x["input"]} | prompt | llm
@@ -114,13 +118,15 @@ if __name__ == "__main__":
     agent1 = (
         prompt | llm
     )  # It's working the same in both the cases even if I don't define a dictionary like done in "agent" variable above
-    # It is only done to show that the input is extracted first and then it is passed into the prompt (Just to demonstrate LCEL)
+    # It is only done to show that the input is extracted first and then it is passed into the prompt (Just to demonstrate LCEL and also
+    # to make sure the input is extracted correctly)
 
     """
     So, essentially 'agent' and 'agent1' what they are doing is it is going to the point till where the llm decides which tool to use 
     and what is the tool input. Now, our job is to parse the Action and Action input to execute the tool and pass the result of the tool 
     to the llm back. So, to extract the Action and Action input we can use regex but langchain has already implemented this and the 
-    output parser name is ReActSingleInputOutputParser 
+    output parser name is ReActSingleInputOutputParser (Which expects output to be either AgentAction or AgentFinish: AgentAction when
+    a tool call needs to be made and AgentFinish when final answer need to be shown)
     """
     agent2 = prompt | llm | ReActSingleInputOutputParser()
 
@@ -132,9 +138,10 @@ if __name__ == "__main__":
         | prompt
         | llm
         | ReActSingleInputOutputParser()
-    )  # Adding a new agent because we have added agent_scratcbpad later
-    # for which we have added another lambda function. It should work even without adding this. Agent scratchpad is an AgentAction
-    # object from langchain, so we need to convert it into a string
+    )  # Adding a new agent because we have added agent_scratchpad later
+    # for which we have added another lambda function. It should work even without adding this. Agent scratchpad contains AgentAction
+    # objects from langchain, but we need to have a string, so we are going to convert it into string with langchain utility function
+    # format_log_to_str
 
     # res = agent.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
     # res1 = agent1.invoke({"input": "What is the length of 'Samudrala Sri Vignan Santhosh' in characters?"})
@@ -156,6 +163,7 @@ if __name__ == "__main__":
     agent_step1 = ""
     i = 0
 
+    # Loop for executing the ReACT agent
     while not isinstance(agent_step1, AgentFinish):
         agent_step1: Union[AgentAction, AgentFinish] = agent3.invoke(
             {
@@ -194,8 +202,8 @@ if __name__ == "__main__":
 
     """
     In a ReAct agent, you have this AgentAction and AgentFinish objects which are returned based on what agent is supposed to do. 
-    For example, agentAction is returned when there is a tool call that is supposed to happen and AgentFinish when there is a final answer. 
-    When you put it in a for loop and return AgentFinish as the final answer. You have your agent which runs calling your tools, executing 
+    For example, AgentAction is returned when there is a tool call that is supposed to happen and AgentFinish when there is a final answer. 
+    When you put it in a loop and return AgentFinish as the final answer. You have your agent which runs calling your tools, executing 
     all the actions and completing whatever is required.
     """
     print(f"outside i: {i}")
