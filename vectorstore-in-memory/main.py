@@ -39,9 +39,9 @@ if __name__ == "__main__":
         "faiss_index_react", embeddings, allow_dangerous_deserialization=True
     )  # The flag allow_dangerous_deserialization=True is a safety measure introduced by LangChain to address security
     # risks associated with unpickling data. When loading a FAISS index using load_local(), we are deserializing a
-    #  previously saved vector store, which involves unpickling. Since pickle files can execute arbitrary code if 
+    # previously saved vector store, which involves unpickling. Since pickle files can execute arbitrary code if 
     # tampered with, this makes the process susceptible to deserialization attacks. For this reason, using
-    #  allow_dangerous_deserialization=True is not recommended in production environments.
+    # allow_dangerous_deserialization=True is not recommended in production environments.
 
     retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")
     combine_docs_chain = create_stuff_documents_chain(
