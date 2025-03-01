@@ -56,12 +56,12 @@ if __name__ == "__main__":
     )
 
     retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")  # This is going to be the prompt that 
-    # is sent to the llm after we retrive the relevant information
+    # is sent to the llm after we retrieve the relevant information
      
 
-    combine_docs_chain = create_stuff_documents_chain(llm, retrieval_qa_chat_prompt)  # This function output us a 
+    combine_docs_chain = create_stuff_documents_chain(llm, retrieval_qa_chat_prompt)  # This function outputs a 
     # langchain chain, we plug it in the llm and we give it a retrieval qa prompt and this chain takes a list of documents
-    #  and formats them all into a prompt, then passes that prompt to an LLM. It passes ALL documents, so you should make 
+    # and formats them all into a prompt, then passes that prompt to an LLM. It passes all documents, so you should make 
     # sure it fits within the context window of the LLM you are using. 
 
     retrieval_chain = create_retrieval_chain(
@@ -97,8 +97,8 @@ if __name__ == "__main__":
         | custom_rag_prompt
         | llm
     )  # Using LCEL, here format_docs is a function which takes docs outputted from vector store and formats it accordingly
-    # and the vectorstore.as_retriever() has a method called get_relevant_Documents which will return the docs back to be 
-    # used by us to. We use RunnablePassThrough() when mixing direct values and runnables in LCEL to ensure uniform 
+    # and the vectorstore.as_retriever() has a method called get_relevant_documents which will return the docs back to be 
+    # used by us. We use RunnablePassThrough() when mixing direct values and runnables in LCEL to ensure uniform 
     # processing. If all inputs are direct values, it's not needed. When one input is a runnable and another is a static
     # value, RunnablePassThrough() keeps execution consistent. This ensures smooth chaining and allows easy future 
     # modifications. 
