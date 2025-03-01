@@ -18,9 +18,9 @@ if __name__ == "__main__":
     pdf_path = "ReAct Paper.pdf"
 
     loader = PyPDFLoader(file_path=pdf_path)
-    documents = loader.load()  # THis will make around 30 documents if you debug and evaluate this expression you can see
-    # but we need to have more control over the chunking so that we don't hit our token limit wiht the llm. So, we need to
-    # chunk up the cocuments more. So, we use CharacterTextSplitter
+    documents = loader.load()  # This will make around 30 documents if you debug and evaluate this expression you can see
+    # but we need to have more control over the chunking so that we don't hit our token limit with the llm. So, we need to
+    # chunk up the documents more. So, we use CharacterTextSplitter
 
     text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=30, separator="\n")
 
