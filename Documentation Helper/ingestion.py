@@ -14,7 +14,7 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 def ingest_docs():
-    loader = ReadtheDocsLoader("Langchain-docs/api.python.langchain.com/en/latest")
+    loader = ReadtheDocsLoader("./Documentation Scraping v3/latest/")
 
     raw_documents = loader.load()
 
