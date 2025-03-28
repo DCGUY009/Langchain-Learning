@@ -47,7 +47,16 @@ def run_llm(query: str, chat_history: List[Dict[str, Any]] = []):
         llm=chat,
         retriever=docsearch.as_retriever(),
         prompt=rephrase_prompt
-    )
+    )  # So, here history aware retriever logic is basically a conditional logic implemented again in langchain by something called
+    # as RunnableBranch: What the RunnabelBranch logic is is that it is going to choose a branch based on a condition. Now, in history
+    # aware retriever there are 2 chains. One chain consists of our original retriever where we send our user prompt to the vector
+    # db to get the relevant context directly (So, every new user query is sent to the vector db without any consideration for the 
+    # past history). Now, what history aware retirver does is it has this condition where first it checks whether the chat_history key
+    # is empty or not. Now, if it is empty then it is going to run the first chain we discussed. Now, if it is false what it is going 
+    # to do is take the rephrase prompt the one we pulled from the langchain hub and the prompt is structured such that based on the 
+    # current chat history, user question it will rephrase the question. Now, this rephrased question is extracted using StrOutputParser 4
+    # and then passed in to the retriever to retrieve relevant context with the rephrased question. We are just using this so it would be 
+    # helpful to us when there is a history.
 
     # qa = create_retrieval_chain(
     #     retriever=docsearch.as_retriever(),
@@ -62,7 +71,12 @@ def run_llm(query: str, chat_history: List[Dict[str, Any]] = []):
     qa = create_retrieval_chain(
         retriever=history_aware_retriever,
         combine_docs_chain=stuff_documents_chain
-    )
+    )  # So, here based on chat_history being empty or not, the history aware retriever might choose 2 different chains 
+    # where in one chain if chat_history is empty then the user prompt is directly sent to the retriever to retrieve the context.
+    # And if chat_history is not empty, then the rephrase prompt is used and then the user original question is rephrased considering
+    # the chat_history and the relevant context is retrieved. Now, whatever way the context is retrieved (We just want the most 
+    # relevant context) it is passed again to the retrieval_qa_chat_prompt with the system prompt + chat_history + context + user_input
+    # (the original one). 
 
     result = qa.invoke(input={
         "input": query,
