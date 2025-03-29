@@ -1,3 +1,5 @@
+# Not able to make it work. Will look into this later as this is optional and is just to improve the RAG
+
 import os 
 from dotenv import load_dotenv
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -5,7 +7,10 @@ from langchain_community.document_loaders import ReadTheDocsLoader
 from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from pprint import pprint 
-
+from typing import List
+from firecrawl import FirecrawlApp
+from langchain_community.document_loaders import FireCrawlLoader
+import time
 
 load_dotenv()
 
@@ -72,13 +77,27 @@ def ingest_docs():
     print("*** Loading to Vector Store done ***")
 
 
-def ingest_docs2() -> None:
+def ingest_docs2(docs) -> None:
+    if docs:
+        print(f"Adding {len(docs)} documents into Pinecone...")
+
+        for doc in docs:
+            source_url = doc.metadata.get("sourceURL", "Unknown Source")  # Get URL from metadata
+            print(f"Ingesting document from {source_url}...")
+
+            PineconeVectorStore.from_documents([doc], embeddings, index_name="firecrawl-langchain-doc-index")
+
+            print(f"Document from {source_url} loaded successfully into Pinecone.")
+    else:
+        print("No documents retrieved.")
+
+
+def crawl_docs() -> List:
     """
     This function is used to crawl the langchain website using firecrawl which would make the job easier for us removing 
     all the html tags and other unnecessary items and neatly structuring it into a markdown format very much preferred like how LLM likes
     it.
     """
-    from langchain_community.document_loaders import FireCrawlLoader
 
     langchain_documents_base_urls = [
         "https://python.langchain.com/docs/integrations/chat/",
@@ -109,24 +128,77 @@ def ingest_docs2() -> None:
             url=url,
             mode="crawl",
             params={
-                "crawlerOptions": {"limit": 20},
-                "pageOptions": {"onlyMainContent": True},
-                "wait_until_done": True,
+                "limit": 20,
+                "scrapeOptions": {
+                    "onlyMainContent": True
+                },
             },
             api_key=os.getenv("FIRECRAWL_API_KEY")
         )
 
         docs = loader.load()
+        print(docs)
+        return docs
 
-        print(f"Going to add {len(docs)} documents to Pinecone!")
-        PineconeVectorStore.from_documents(
-            docs, embeddings, index_name="firecrawl-langchain-doc-index"
-        )  # Here, we are not splitting it because the output we get from firecrawl is good. So, it is ok even if we directly store
-        # them in the vector store
-        print(f"******Loading {url}* to vectorstore done")
+        # print(f"Going to add {len(docs)} documents to Pinecone!")
+        # PineconeVectorStore.from_documents(
+        #     docs, embeddings, index_name="firecrawl-langchain-doc-index"
+        # )  # Here, we are not splitting it because the output we get from firecrawl is good. So, it is ok even if we directly store
+        # # them in the vector store
+        # print(f"******Loading {url}* to vectorstore done")
+
+
+
+
+def ingest_docs3():
+    url = "https://python.langchain.com/docs/integrations/chat/"
+    api_key = os.getenv("FIRECRAWL_API_KEY")
+
+    if not api_key:
+        print("Error: FIRECRAWL_API_KEY not set!")
+        return
+
+    app = FirecrawlApp(api_key=api_key)
+
+    print(f"Starting FireCrawl for: {url}")
+
+    # Start crawl
+    crawl_response = app.crawl_url(url, params={"limit": 1, "scrapeOptions": {"onlyMainContent": True}})
+    
+    print("Crawl Response:", crawl_response)  # Debugging output
+
+    job_id = crawl_response.get("jobId")
+    if not job_id:
+        print("Error: No job ID returned. Crawl might have failed.")
+        return
+
+    print(f"Job ID received: {job_id}")
+
+    # Wait a few seconds before checking status
+    time.sleep(10)
+
+    # Check crawl status
+    try:
+        status_response = app.check_crawl_status(job_id)
+        print("Crawl Status Response:", status_response)  # Debugging output
+
+        status = status_response.get("status")
+        if status == "completed":
+            print("Crawl completed successfully!")
+        elif status in ["failed", "stopped"]:
+            print(f"Crawl {status}. Exiting.")
+            return
+        else:
+            print(f"Crawl is still in progress: {status}")
+    
+    except Exception as e:
+        print(f"Error checking crawl status: {e}")
+
 
 
 if __name__=="__main__":
-    ingest_docs2()
+    # docs = crawl_docs()
+    # ingest_docs2(docs)
+    ingest_docs3()
 
 
