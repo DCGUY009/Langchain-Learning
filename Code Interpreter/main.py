@@ -7,6 +7,7 @@ from langchain_experimental.tools import PythonREPLTool, PythonAstREPLTool  # So
 # all part of this separate library in langchain. PythonREPLTool runs your python scripts in the interpreter and is very dangerous 
 # to run in production environments. Hence, these type of tools are placed in langchain_experimental
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
+from langchain.tools import Tool
 
 
 load_dotenv()
@@ -94,7 +95,7 @@ def main():
     #     }
     # )
 
-    csv_agent = create_csv_agent(
+    csv_agent: AgentExecutor = create_csv_agent(
         llm = ChatOpenAI(
             temperature=0,
             model="gpt-4o-mini",
@@ -103,19 +104,65 @@ def main():
         path="./Data/episode_info.csv",
         verbose=True,
         allow_dangerous_code=True, 
-        agent_type="zero-shot-react-description"
+        agent_type="zero-shot-react-description",
+        prefix="Action should always be 'python_repl_ast'"
     )
 
-    csv_agent.invoke(
-        input={
-            "input": "How many columns are there in file episode_info.csv"
-        }
+    # csv_agent.invoke(
+    #     input={
+    #         "input": "How many columns are there in file episode_info.csv"
+    #     }
+    # )
+
+    # csv_agent.invoke(
+    #     input={
+    #         "input": "print the seasons by ascending order of the number of episodes they have"
+    #     }
+    # )
+
+
+    ######################################## Router Grand Agent #############################################################
+
+    router_tools = [
+        Tool(
+            name="Python Agent",
+            func=agent_executor.invoke,
+            description="""Useful when you need to tranform natural language to python and execute the python code,
+            returning the results of the code execution. 
+            DOES NOT ACCEPT CODE AS INPUT"""
+        ),
+        Tool(
+            name="CSV Agent",
+            func=csv_agent.invoke,
+            description="""Useful when you need to answer question over episode_info.csv file.
+            Takes an input the entire question and returns the answer after running pandas calculations"""
+        )
+    ]
+
+    router_prompt = base_prompt.partial(instructions="")
+    
+    grand_agent = create_react_agent(
+        prompt=prompt,
+        llm=ChatOpenAI(
+            temperature=0,
+            model="gpt-4o-mini",
+            api_key=OPENAI_API_KEY
+        ),
+        tools=router_tools,
     )
 
-    csv_agent.invoke(
-        input={
-            "input": "print the seasons by ascending order of the number of episodes they have"
-        }
+    grand_agent_executor = AgentExecutor(
+        agent=grand_agent,
+        tools=router_tools,
+        verbose=True
+    )
+
+    print(
+        grand_agent_executor.invoke(
+            input = {
+                "input": "Which season has the most episodes?"
+            }
+        )
     )
 
 
