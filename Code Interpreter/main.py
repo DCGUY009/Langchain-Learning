@@ -8,6 +8,7 @@ from langchain_experimental.tools import PythonREPLTool, PythonAstREPLTool  # So
 # to run in production environments. Hence, these type of tools are placed in langchain_experimental
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
 from langchain.tools import Tool
+from typing import Any
 
 
 load_dotenv()
@@ -123,10 +124,20 @@ def main():
 
     ######################################## Router Grand Agent #############################################################
 
+    def python_agent_executor_wrapper(original_prompt: str) -> dict[str, Any]:
+        """
+        This implementation is just a hack. It shouldn't be done this way. This part of the course isn't done properly by eden.
+        """
+        return agent_executor.invoke(
+            input={
+                "input": original_prompt
+                }
+                )
+
     router_tools = [
         Tool(
             name="Python Agent",
-            func=agent_executor.invoke,
+            func=python_agent_executor_wrapper,
             description="""Useful when you need to tranform natural language to python and execute the python code,
             returning the results of the code execution. 
             DOES NOT ACCEPT CODE AS INPUT"""
@@ -142,7 +153,7 @@ def main():
     router_prompt = base_prompt.partial(instructions="")
     
     grand_agent = create_react_agent(
-        prompt=prompt,
+        prompt=router_prompt,
         llm=ChatOpenAI(
             temperature=0,
             model="gpt-4o-mini",
@@ -160,7 +171,9 @@ def main():
     print(
         grand_agent_executor.invoke(
             input = {
-                "input": "Which season has the most episodes?"
+                # "input": "Which season has the most episodes?"
+                "input": """Generate and save in current working directory 15 QRCodes that point
+                to https://www.linkedin.com/in/samudralasanthosh/. You have qrcode package installed already."""
             }
         )
     )
