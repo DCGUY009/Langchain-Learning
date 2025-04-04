@@ -90,10 +90,10 @@ chain = load_summarize_chain(llm, chain_type="map_reduce")
 
 The **Refine** strategy is best understood using the concept of `foldl` (fold-left) from functional programming — not for what it *does* (like multiplying), but for **how it processes** data step-by-step.
 
-#### 🧪 `foldl` Analogy (in plain English):
+#### 🧪 `foldl` Analogy:
 
 In functional programming, `foldl` processes a list by:
-1. Starting with an **initial value** (e.g., `""` or `0`)
+1. Starting with an **initial value** (e.g., `""` or `1`)
 2. Taking the first item in the list and combining it with the current value using a custom function.
 3. Repeating this for every item, one at a time, until the list is done.
 4. The final accumulated value is the result.
