@@ -72,6 +72,8 @@ chain.run(docs)
 
 Each document is summarized individually first, then all summaries are merged into a final summary.
 
+![Map Reduce Working](map_reduce.png)
+
 ```python
 chain = load_summarize_chain(llm, chain_type="map_reduce")
 ```
@@ -89,6 +91,8 @@ chain = load_summarize_chain(llm, chain_type="map_reduce")
 ### 3. 🔁 Refine
 
 The **Refine** strategy is best understood using the concept of `foldl` (fold-left) from functional programming — not for what it *does* (like multiplying), but for **how it processes** data step-by-step.
+
+![Refine Working](refine.png)
 
 #### 🧪 `foldl` Analogy:
 
