@@ -1,46 +1,141 @@
-Every LLM have a token limit. Now, gpt-4o-mini has a context length of 128k tokens and gemini has 1M tokens, etc. This keeps on increasing as GPU's becomes cheaper and models become better. 
+# Understanding Token Limitations in LLMs and Handling Them with LangChain
 
-Now what is this context length. LLMs operate in terms of tokens. A token can be a set of letters in a word or a whole word or a bunch of words, it is determined by the vendor of the llm based on the model needs at the time of the training. So, they use a tokenizer which divides this words into tokens based on the model needs. Now, it can be different for each model. So, let's say we have 3 models:
+Every Large Language Model (LLM) has a **token limit**, often referred to as its **context length**. For example:
 
-1. Claude 3.5 is a model optimized for coding purposes. So, here the tokenizer would make sure not to divide the meaningful units like def, () or {} so that the llm doesn't loose important context
+- **GPT-4o mini**: 128k tokens  
+- **Gemini**: Up to 1 million tokens  
 
-2. Gpt models use BPE. which balances efficiency across various text types. including conversational language, prose, and code
+These limits are gradually increasing as GPUs become cheaper and models become more efficient.
 
-3. Google Gemini might have a tokenizer optimized for multi lingual text
+---
 
-So, this context limit of 128k (let's assume gpt 4o mini) is combined of input and output. Now, if input and output combined exceeds this limit, then llm might not give accurate answer (as now it is cutting off and taking only the words that fall under that context limit directly rather than throwing an error).So, there are some methods in langchain to deal with this. Let's see them here.
+## 🧠 What is Context Length?
 
-They are:
+LLMs operate in **tokens**, not words. A token could be:
 
-1. Stuffing
+- A part of a word (e.g., "ing")
+- A full word
+- Multiple words  
 
-2. Map reduce
+Each LLM uses a **tokenizer**, customized during training, to split input text into tokens. This tokenizer is optimized for the model’s purpose and can differ across models.
 
-3. Refine, etc
+### 🔍 Tokenizer Examples
 
+1. **Claude 3.5** (Anthropic):  
+   Optimized for code, avoids splitting key elements like `def`, `()`, `{}` to preserve context.
 
-So, this code
+2. **GPT Models (e.g., GPT-4)**:  
+   Use **Byte Pair Encoding (BPE)**, balancing efficiency across code, conversation, and prose.
 
-langchain.chains.summarize import load_summarize_chain
+3. **Google Gemini**:  
+   Likely optimized for multilingual text.
+
+> 🧠 **Important**: Token limits apply to both input and output combined. If this combined size exceeds the context limit, the model may truncate parts of the input or response without throwing an error, leading to incomplete or inaccurate answers.
+
+---
+
+## ⚙️ How LangChain Helps Handle Token Limits
+
+LangChain provides various summarization chains to help work within token limits, especially when handling large documents. The main strategies are:
+
+1. **Stuffing**
+2. **Map-Reduce**
+3. **Refine**
+
+---
+
+### 1. 📦 Stuffing
+
+All documents are directly “stuffed” into a single prompt and passed to the LLM.
+
+```python
+from langchain.chains.summarize import load_summarize_chain
+from langchain.schema import Document
+
 docs = [Document(page_content=t) for t in texts[:3]]
 chain = load_summarize_chain(llm, chain_type="stuff")
 chain.run(docs)
-So, lets say we have a bunch of documents we want to summarize. We can use thos load_summarize_chain from langchain and it will use this chain and summarize the documents provided.
+```
 
+#### ✅ Pros:
+- Simple and fast
+- Only one LLM call
 
+#### ❌ Cons:
+- Not scalable
+- Fails if the input exceeds the context limit
+- Unsuitable for agent workflows or long documents
 
-Now, here in the above code when we intialized this chain, we are using this something called as chain_type = "stuff". This simply means that whatever we are passing in as context is being directly put in the prompt (stuffed). This will work fine for one llm call and it will fail when there are large documents, or memory is integrated or multiple llm calls happen (like in agents)
+---
 
-So, to mitigate this what we can do is use something called as map_reduce. Here, what happens is each document is summarized with the help of an llm (this can happen asynchronously since there is no dependency of one document over the another) and then these all small summaries from individual documents are combined to make a big summary (which is the final summary of the document).
+### 2. 🗂 Map-Reduce
 
-The code in langchain is simple in the earlier load_summarize_chain we use chain_type="map_reduce"
+Each document is summarized individually first, then all summaries are merged into a final summary.
 
-The advantages and disadvantages of using map_reduce is that:
-Advantages: Can scale to any number of documents and also can run in parallel
-Disadvantages: Cost will increase and also possible loss of information 
+```python
+chain = load_summarize_chain(llm, chain_type="map_reduce")
+```
 
-The next way to handle this using refine chain: 
+#### ✅ Pros:
+- Scales to large document sets
+- Can run in parallel (faster for large inputs)
 
+#### ❌ Cons:
+- Higher cost (multiple LLM calls)
+- Risk of information loss during the reduction phase
 
+---
 
+### 3. 🔁 Refine
 
+The **Refine** strategy is best understood using the concept of `foldl` (fold-left) from functional programming — not for what it *does* (like multiplying), but for **how it processes** data step-by-step.
+
+#### 🧪 `foldl` Analogy (in plain English):
+
+In functional programming, `foldl` processes a list by:
+1. Starting with an **initial value** (e.g., `""` or `0`)
+2. Taking the first item in the list and combining it with the current value using a custom function.
+3. Repeating this for every item, one at a time, until the list is done.
+4. The final accumulated value is the result.
+
+#### 💡 Now think about it for summarization:
+
+You want to summarize a series of documents, but instead of doing it all at once (like in `stuff` or `map_reduce`), you **build up** the summary **progressively** — one document at a time.
+
+So:
+
+- **Initial value**: an empty summary (`""`)
+- **Each document**: the next item in the list
+- **Function**: combine the current summary with the next document and generate a new refined summary
+
+![Foldl Working](foldl.png)
+
+This is exactly what LangChain’s `refine` chain does.
+
+#### 📄 How it works in practice:
+
+```python
+from langchain.chains.summarize import load_summarize_chain
+
+chain = load_summarize_chain(llm, chain_type="refine")
+```
+
+#### ✅ Pros:
+- Maintains continuity and context
+- Useful for large documents with interrelated sections
+
+#### ❌ Cons:
+- Slower due to sequential processing
+- Final summary may still grow large if not managed carefully
+
+---
+
+## 📊 Summary Table
+
+| Chain Type   | Best For             | Pros                                 | Cons                                 |
+|--------------|----------------------|--------------------------------------|--------------------------------------|
+| **Stuff**     | Small inputs         | Simple, fast, one LLM call           | Fails with large inputs              |
+| **Map-Reduce**| Many documents       | Scalable, parallel processing        | Costly, may lose detail              |
+| **Refine**    | Contextual documents | Retains flow, context-aware summary  | Slower, more sequential              |
+
+---
