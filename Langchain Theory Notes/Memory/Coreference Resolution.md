@@ -40,7 +40,7 @@ By **including the past conversation** in the prompt, the LLM can correctly reso
 
 ## 🖼️ Visualizing Coreference Resolution
 
-![Coreference Resolution](coreference-resolution.png)
+![Coreference Resolution](coreference_resolution.png)
 
 > This diagram shows how different words refer to the same entity. Similarly, in LLMs, we must **explicitly pass conversation history** to help the model resolve references.
 
