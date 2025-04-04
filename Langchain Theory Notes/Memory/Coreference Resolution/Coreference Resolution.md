@@ -76,7 +76,7 @@ Here, **"that"** correctly refers to *Cold Brew coffee* because we passed the pa
 However, including **entire chat histories** can quickly **exceed the model’s token limit**, especially in long conversations (e.g., 1-hour chat sessions).
 
 ### 🛠️ Solution: LangChain’s Memory Strategies  
-To handle this, LangChain provides **various memory management techniques** discussed in **[LangChain Memory Deep Dive.md](Langchain%20Memory%20Deep%20Dive.md)**.
+To handle this, LangChain provides **various memory management techniques** discussed in **[LangChain Memory Deep Dive.md](../Langchain%20Memory%20Deep%20Dive.md)**.
 
 ---
 
