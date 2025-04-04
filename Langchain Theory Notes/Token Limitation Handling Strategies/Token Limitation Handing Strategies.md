@@ -92,8 +92,6 @@ chain = load_summarize_chain(llm, chain_type="map_reduce")
 
 The **Refine** strategy is best understood using the concept of `foldl` (fold-left) from functional programming — not for what it *does* (like multiplying), but for **how it processes** data step-by-step.
 
-![Refine Working](refine.png)
-
 #### 🧪 `foldl` Analogy:
 
 In functional programming, `foldl` processes a list by:
@@ -101,6 +99,8 @@ In functional programming, `foldl` processes a list by:
 2. Taking the first item in the list and combining it with the current value using a custom function.
 3. Repeating this for every item, one at a time, until the list is done.
 4. The final accumulated value is the result.
+
+![Foldl Working](foldl.png)
 
 #### 💡 Now think about it for summarization:
 
@@ -112,7 +112,7 @@ So:
 - **Each document**: the next item in the list
 - **Function**: combine the current summary with the next document and generate a new refined summary
 
-![Foldl Working](foldl.png)
+![Refine Working](refine.png)
 
 This is exactly what LangChain’s `refine` chain does.
 
