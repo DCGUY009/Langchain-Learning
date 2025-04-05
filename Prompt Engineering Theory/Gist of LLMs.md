@@ -34,7 +34,7 @@ Since **"Framework"** has the highest probability, the model chooses that as the
 A language model estimates:
 
 ```
-P(xₜ₊₁ | xₜ, xₜ₋₁, ..., x₁)
+P(xₜ₊₁ | x₁, x₂, ..., xₜ)
 ```
 
 Where `xₜ₊₁` is the next word, and `V` is the vocabulary of all possible words.  
