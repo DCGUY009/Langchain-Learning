@@ -2,6 +2,8 @@
 
 Large Language Models (LLMs) with over 100 billion parameters are incredibly powerful and can perform a wide range of tasks with minimal or no training. However, they still struggle with certain categories of problems — especially those requiring **multi-step reasoning**.
 
+Review this paper for more information [Chain of Thought (CoT)](https://arxiv.org/pdf/2201.11903v1) Prompting.
+
 ## Strengths and Weaknesses of LLMs
 
 Take a quick look at what LLMs excel at, and where they tend to fall short:
