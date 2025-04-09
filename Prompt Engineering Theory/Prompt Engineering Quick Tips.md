@@ -1,7 +1,3 @@
-Here's the refined and optimized version of your content in **Markdown format**, keeping all prompts and responses **unchanged**, as requested:
-
----
-
 # ⚡ Quick Tips for Writing Better Prompts
 
 To write a good prompt, you should focus on the following key elements:
@@ -124,7 +120,3 @@ Iterating is crucial in **prompt engineering**.
 - Repeat until the output is what you need  
 
 > 💡 Think before you prompt. Clarity upfront saves effort later.
-
----
-
-Let me know if you want a visual version of this as a slide or cheat sheet!
