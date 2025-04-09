@@ -1,7 +1,3 @@
-Here you go — refined, optimized, and formatted in **Markdown**, as requested:
-
----
-
 # 🧠 Reasoning and Acting (ReAct)
 
 When we, as humans, are faced with complex tasks, we naturally **reason**, break the task down into smaller steps, **act** on them one by one, and ultimately complete the task.
@@ -45,7 +41,3 @@ ReAct = Chain of Thought (Reasoning) + Tool Use (Actions)
 This combo makes the model much better at tasks requiring external data or multi-step logic.
 
 ![ReAct](./Images/ReAct.png)
-
----
-
-Let me know if you'd like a code example of ReAct or a breakdown of how it's implemented in LangChain!
