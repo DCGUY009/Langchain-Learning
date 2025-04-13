@@ -8,7 +8,7 @@ These are the most basic use-cases — just a prompt and a single response from 
 
 ![Simple LLM Call](./Images/Simple_LLM_Call.png)
 
-🔗 Example: [wemadeastory.com](https://wemadeastory.com)
+🔗 Example: [wemadeastory.com](https://www.wemadeastory.com/login)
 
 ---
 
