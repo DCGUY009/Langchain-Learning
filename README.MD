@@ -210,3 +210,49 @@ If you want to setup Langsmith tracing for your project, follow these steps:
     - You will be able to trace everything from initial prompt to tool outputs etc
     - You will get a fair idea about latency, cost etc
     - You can optimize quickly based on the information present there
+
+---
+
+### 📚 Resources for Building with LLMs
+
+---
+
+#### 1. 🔍 Prompt Library — *LangChain Hub*
+
+Explore a wide variety of **battle-tested prompts** across use cases like:
+
+- ✅ Entity extraction  
+- 💬 SQL generation  
+- 👨‍💻 Code generation  
+- 📚 RAG pipelines  
+- 🧠 Prompts optimized per LLM vendor (since prompts that work well on one model may not work on another)
+
+→ Try them out and experiment here:  
+👉 [LangChain Hub](https://smith.langchain.com/hub)
+
+---
+
+#### 2. 🧩 Text Chunking — *Text Splitter Playground*
+
+When using **RAG**, it's crucial to chunk your text meaningfully so that:
+
+- 📌 Each chunk retains context and meaning on its own  
+- 📏 You choose the **right `chunk_size` and `chunk_overlap`**  
+- 🧠 Chunks don’t lose semantics during retrieval
+
+This is usually trial and error. But LangChain built a playground for this:  
+👉 [Text Splitter Playground](https://langchain-text-splitter.streamlit.app/)
+
+---
+
+#### 3. 🆚 LlamaIndex vs LangChain
+
+Both frameworks are used to build LLM applications. Here's a quick comparison:
+
+| Feature            | **LlamaIndex**                | **LangChain**                  |
+|--------------------|-------------------------------|--------------------------------|
+| Focus              | Data-centric / RAG-heavy      | General-purpose LLM orchestration |
+| RAG Capabilities   | 🔥 Very strong                 | ✅ Evolving and improving       |
+| Tooling            | Great for structured data     | Great for agents + integrations |
+
+You can choose based on your project’s needs — or combine them both!
