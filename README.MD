@@ -192,6 +192,7 @@ LangGraph solves these challenges by letting you build **agent workflows as grap
 
 > 🧠 **LangGraph = Flexibility + Reliability** — A powerful combo for robust agent systems.
 
+Check out the [LangGraph course on Udemy](https://www.udemy.com/course/langgraph/?couponCode=KEEPLEARNING) to dive deeper.
 ---
 
 ### Langsmith Setup
