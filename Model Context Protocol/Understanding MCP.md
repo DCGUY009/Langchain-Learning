@@ -1,29 +1,73 @@
-LLMs are statistical creatures, they predict next token in a sequential manner based on the probability distribution. 
+# 🔍 Understanding Tool Calling in LLMs and the Role of MCP
+
+### 🧠 How LLMs Work  
+LLMs (Large Language Models) are statistical models that predict the next token in a sequence based on prior context. They operate on a token-by-token basis using probability distributions.
 
 ![LLMs Behaviour](./Images/LLMs_Behaviour.png)
 
-Agents for which the LLMs act as a reasoning engine also do the same. So, let's take an example of this, if we ask what is the weather in Hyderabad? It's not going to hallucinate and give an answer since it doesn't have realtime information. It's going to do a tool calling, called get_weather("city"="hyderabad") with the function name and the arguments (So, the underlying llm would first generate this function name along with the arguments it takes to get the response). Now, the implementation comes done by software engineers or vendors or people managing the applications, who are going to take the function name, arguments and execute them and pass them to the llm again for generating next set of words which would be the answer for thr original question.
+In tool-augmented agents, LLMs function as reasoning engines. For example, if you ask:  
+**"What’s the weather in Hyderabad?"**,  
+the LLM won’t hallucinate an answer if it lacks real-time info. Instead, it will generate a tool call like:  
+```python
+get_weather(city="Hyderabad")
+```
+This function call is executed externally (by the software engineer or application), and the result is returned to the LLM to continue generating the response.
 
-So, this tool calling can also be done through MCP
+---
 
-Let's understand the difference between Langchain and MCP:
-Both lanchain and mcp has tools, tools are simply functions written by developers externally. So, they are like functions with arguments that are written according to your use case. And when we define tools, both in mcp and langchain we need to specify what is the funciton, what are the arguments that this function takes, when to use this function and also what it returns.
+### 🛠️ Tool Calling in LangChain vs MCP
 
-![Tool Definition MCP and Langchain](./Images/Toolcalling_mcplangchain.png)
+Both **LangChain** and **Model Context Protocol (MCP)** allow tools to be defined and used by LLMs. A **tool** here is just a function that the LLM can invoke when needed.
 
-So, here the description is very very important because this is eventually used by the llm whether by the model or the mcp. So, in langchain these tools are called by the LLM itself in langchain using bind_tools function. But in MCP, the tools are handled by the AI Applications like Cursor, Windsurf, Claude Desktop, Langgraph Agent, etc. 
+#### Key Concepts:
+- **Tools** are functions with:
+  - A name
+  - Arguments
+  - Descriptions (important for model understanding)
+  - A return value
 
-Both via mcp or langchain bind_tools we are passing into the llm's prompt the descripiton of the tools - when to invoke them, what arguments will they recieve, what output do they output. it basivally is an interface for the ai models to itneract with external tools.
+![Tool Definition: Langchain vs MCP](./Images/Toolcalling_mcplangchain.png)
 
-![Langchain and MCP Difference](./Images/langchain_mcp_difference.png)
+---
 
-Let's see differences:
-MCP Takes this idea and generalizes it a bit, we not only expose tools with mcp, we also expose resources and it can also expose prompts and another difference is who we are going to expose this to,  so in langchain when we use the bind_tools we are binding the tools to the llm, but in mcp we are bidnign the tool to the ai application like cursor, windsurf which have under the hood has the llm, so the client is what injecting the tools description to the llm, We are not injecting directly, we have a couple of abstraction layers efore its getting injected. We have MCP Server which communciates with the list of tools to the MCP Client and the MCP Client is going to inject the instructions of the tools we need to invoke into the llm in the applcation.
+### 🔄 LangChain: Binding Tools Directly to the Model
+
+In LangChain, you bind tools directly to the LLM using `bind_tools`, so the LLM itself chooses which tools to call and when.
+
+```python
+langchain_chat_model.bind_tools([my_tool])
+```
+
+![LangChain Tool Binding](./Images/langchain_mcp_difference.png)
+
+---
+
+### 🌐 MCP: Exposing Tools to Applications, Not Just LLMs
+
+In MCP, tools aren’t injected directly into the LLM. Instead, they are **exposed by the MCP Server** and used by **AI applications** (like Cursor, Claude Desktop, Windsurf, LangGraph Agent, etc.) that wrap around the LLM.
+
+So the **MCP Client** is responsible for:
+- Injecting the right tools, prompts, and resources into the model context  
+- Acting as an interface layer between model and the tools
 
 ![MCP Working](./Images/MCP_Working.png)
 
+---
 
-Let's discuss about langchain mcp adapter
-It is an open soruce, which enables seamless integration of mcp tools with langchain and langgraph. It has tool compatibiltiy so we can convert mcp tools into langchain and langgrapha gent compatible tools, so this allows develoeprs to leverage exisitng mcp servers that somebody else wrote without any manual adaption. IT will also supploes us with a mcp client which allwos us to connect with multiple mco servers whcih allows jus to use their tools.
+### 🔄 Summary of Differences
 
+| Feature            | LangChain                               | MCP                                                   |
+|--------------------|------------------------------------------|--------------------------------------------------------|
+| Tool Binding       | Bound directly to LLM using `bind_tools` | Bound to AI application via MCP Server → MCP Client    |
+| Tool Call Location | Model chooses tool                      | Application injects tool calls based on context        |
+| Extensibility      | Tools only                               | Tools + Prompts + Resources                            |
+| Clients            | LLMs (via LangChain)                     | AI apps like Cursor, Claude Desktop, LangGraph, etc.   |
 
+---
+
+### 🧩 Bonus: LangChain-MCP Adapter
+
+There's also an open-source **LangChain-MCP adapter** that allows you to convert MCP tools into LangChain or LangGraph compatible tools. This means:
+- You can re-use someone else's MCP Server tools in your LangChain application  
+- No need for manual adaptation  
+- Comes with an MCP client that supports connection to multiple MCP Servers
