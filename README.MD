@@ -2,54 +2,44 @@
 
 Course Link - [LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?couponCode=KEEPLEARNING)
 
-### Folder Structure
-```bash
-📦 ROOT Folder
-├── 📂 .vscode
-│   └── launch.json
-├── 📂 Ice breaker
-│   ├── 📂 .venv
-│   ├── .env
-│   ├── .gitignore
-│   ├── ice_breaker.py
-│   ├── LICENSE
-│   ├── Pipfile
-│   ├── Pipfile.lock
-│   └── README.md
-├── 📂 Ice breaker project
-│   ├── 📂 __pycache__
-│   ├── 📂 .venv
-│   ├── 📂 Agents
-│   ├── 📂 static
-│   ├── 📂 templates
-│   ├── 📂 third_parties
-│   ├── 📂 tools
-│   ├── .env
-│   ├── .gitignore
-│   ├── app.py
-│   ├── ice_breaker.py
-│   ├── LICENSE
-│   ├── output_parsers.py
-│   ├── Pipfile
-│   ├── Pipfile.lock
-│   └── README.md
-├── 📂 intro-to-vector-dbs
-│   ├── 📂 .venv
-│   ├── ingestion.py
-│   ├── mediumblog1.txt
-│   ├── Pipfile
-│   ├── Pipfile.lock
-├── 📂 react-langchain
-│   ├── 📂 __pycache__
-│   ├── 📂 .venv
-│   ├── callbacks.py
-│   ├── main.py
-│   ├── Pipfile
-│   ├── Pipfile.lock
-│── .env
-│── .gitignore
-│── README.md
-```
+### Utilizing this project properly
+So, here is the folder structure and the starter file from each of the folder
+>.vscode
+> Code Interpeter
+  > main.py
+> Documentation Helper
+  > main.py
+> Ice breaker
+  > ice_breaker.py
+> Ice breaker project
+  > app.py
+> intro-to-vector-dbs
+  > main.py
+> Langchain Thoery Notes
+> LLM Applications in Production
+> Model Context Protocol
+> Prompt Engineering Theory
+> react-langchain
+  > main.py
+> vectorstore-in-memory
+  > main.py
+> .gitignore
+> README.MD
+
+
+Now, if you want to learn about langchain through this repo, the order in which you have to go is
+Ice breaker -> Ice breaker project -> react-langchain -> intro-to-vector-dbs -> vectorstore-in-memory -> Documentation Helper -> Code Interpreter
+
+How to start using each file:
+1. Ice breaker: Navigate inside the Ice breaker folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python ice_breaker.py
+2. Ice breaker project: Navigate inside the Ice breaker project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python app.py to open the HTML, CSS and flask application
+3. react-langchain: Navigate inside the react-langchain project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py.
+4. intro-to-vector-dbs: Navigate inside the intro-to-vector-dbs project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py
+5. vectorstore-in-memory: Navigate inside the vectorstore-in-memory project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py
+6. Documentation Helper: Navigate inside the Documentation Helper project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run streamlit run main.py to open the website.
+7. Code Interpreter: Navigate inside the Code Interpreter project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py.
+
+---
 
 ### **Setting Up Pipenv for Multiple Subfolders with Isolated `.venv` Environments**
 
