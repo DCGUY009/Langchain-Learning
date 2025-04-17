@@ -2,6 +2,8 @@
 
 Course Link - [LangChain- Develop LLM powered applications with LangChain](https://www.udemy.com/course/langchain/?couponCode=KEEPLEARNING)
 
+---
+
 ### Utilizing this project properly
 So, here is the folder structure and the starter file from each of the folder
 >.vscode
