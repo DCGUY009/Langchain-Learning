@@ -4,42 +4,167 @@ Course Link - [LangChain- Develop LLM powered applications with LangChain](https
 
 ---
 
-### Utilizing this project properly
-So, here is the folder structure and the starter file from each of the folder
->.vscode
-> Code Interpeter
-  > main.py
-> Documentation Helper
-  > main.py
-> Ice breaker
-  > ice_breaker.py
-> Ice breaker project
-  > app.py
-> intro-to-vector-dbs
-  > main.py
-> Langchain Thoery Notes
-> LLM Applications in Production
-> Model Context Protocol
-> Prompt Engineering Theory
-> react-langchain
-  > main.py
-> vectorstore-in-memory
-  > main.py
-> .gitignore
-> README.MD
+## Using This Project Effectively
 
+### 📁 Folder Structure
 
-Now, if you want to learn about langchain through this repo, the order in which you have to go is
-Ice breaker -> Ice breaker project -> react-langchain -> intro-to-vector-dbs -> vectorstore-in-memory -> Documentation Helper -> Code Interpreter
+```
+.vscode/
+Code Interpreter/
+  └── main.py
+Documentation Helper/
+  └── main.py
+Ice breaker/
+  └── ice_breaker.py
+Ice breaker project/
+  └── app.py
+intro-to-vector-dbs/
+  └── main.py
+Langchain Theory Notes/
+LLM Applications in Production/
+Model Context Protocol/
+Prompt Engineering Theory/
+react-langchain/
+  └── main.py
+vectorstore-in-memory/
+  └── main.py
+.gitignore
+README.md
+```
 
-How to start using each file:
-1. Ice breaker: Navigate inside the Ice breaker folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python ice_breaker.py
-2. Ice breaker project: Navigate inside the Ice breaker project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python app.py to open the HTML, CSS and flask application
-3. react-langchain: Navigate inside the react-langchain project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py.
-4. intro-to-vector-dbs: Navigate inside the intro-to-vector-dbs project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py
-5. vectorstore-in-memory: Navigate inside the vectorstore-in-memory project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py
-6. Documentation Helper: Navigate inside the Documentation Helper project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run streamlit run main.py to open the website.
-7. Code Interpreter: Navigate inside the Code Interpreter project folder using cd command and then enter ./.venv/Scripts/activate to activate the virtual environment and then run python main.py.
+---
+
+### 🔁 Recommended Learning Order (LangChain-Focused)
+
+To learn LangChain step-by-step using this repository, follow this order:
+
+```
+1. Ice breaker  
+2. Ice breaker project  
+3. react-langchain  
+4. intro-to-vector-dbs  
+5. vectorstore-in-memory  
+6. Documentation Helper  
+7. Code Interpreter
+```
+
+---
+
+### ▶️ How to Run Each Component
+
+Each project has its own virtual environment setup. Use the terminal and `cd` into the appropriate folder before running the commands.
+
+---
+
+#### 1. **Ice breaker**
+- Navigate:  
+  ```bash
+  cd "Ice breaker"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python ice_breaker.py
+  ```
+
+---
+
+#### 2. **Ice breaker project** (HTML/CSS + Flask app)
+- Navigate:  
+  ```bash
+  cd "Ice breaker project"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python app.py
+  ```
+
+---
+
+#### 3. **react-langchain**
+- Navigate:  
+  ```bash
+  cd "react-langchain"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python main.py
+  ```
+
+---
+
+#### 4. **intro-to-vector-dbs**
+- Navigate:  
+  ```bash
+  cd "intro-to-vector-dbs"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python main.py
+  ```
+
+---
+
+#### 5. **vectorstore-in-memory**
+- Navigate:  
+  ```bash
+  cd "vectorstore-in-memory"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python main.py
+  ```
+
+---
+
+#### 6. **Documentation Helper**
+- Navigate:  
+  ```bash
+  cd "Documentation Helper"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run (with Streamlit):  
+  ```bash
+  streamlit run main.py
+  ```
+
+---
+
+#### 7. **Code Interpreter**
+- Navigate:  
+  ```bash
+  cd "Code Interpreter"
+  ```
+- Activate environment:  
+  ```bash
+  ./.venv/Scripts/activate
+  ```
+- Run:  
+  ```bash
+  python main.py
+  ```
 
 ---
 
